@@ -1,0 +1,46 @@
+<style>
+/* instagram */
+.custom-footer__instagram.col-sm-4{
+	width: 100% !important;
+	float: none;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.instagram-widget{
+	max-width: 100%;
+  flex-wrap: nowrap;
+}
+.instagram-widget.columns-3>a{
+	padding-bottom: 10%;
+}
+@media (max-width: 768px){
+	.instagram-widget{
+		flex-wrap: wrap;
+	}
+	.instagram-widget.columns-3>a{
+		padding-bottom: 33%;
+	}
+	.instagram-widget.columns-3 a:nth-child(n+7){
+		display: none;
+	}
+}
+.custom-footer__instagram.col-sm-4 h4{
+	text-align: center;
+}
+/* odstup od follow button */
+.instagram-follow-btn{
+	margin: 10px;
+}
+/* po najetí na instagram img */
+@media (min-width: 769px){
+	.custom-footer__instagram a:hover {
+		transition: 1s;
+	  transform: scale(1.2);
+	  border-radius: 15px;
+	}
+}
+.custom-footer__instagram.col-sm-6.col-lg-3 h4{
+	text-align: center;
+}
+/* END instagram END */
+</style>
