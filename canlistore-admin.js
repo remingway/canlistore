@@ -10,3 +10,15 @@ var parentElement = referenceElement.parentNode;
 
 // Přesuňte prvek <a> před referenční prvek
 parentElement.insertBefore(elementToMove, referenceElement);
+
+
+/*označení více jak 1 ks*/
+setInterval(spustitKod, 1000);
+function spustitKod() {
+	var cells = document.querySelectorAll('.v2table__cell--number');
+	cells.forEach(function(cell) {
+	if (cell.innerText.trim() != '1 ks' && cell.innerText.trim() != 'Množství'&& cell.innerText.trim() != '') {
+		cell.style.backgroundColor = '#FFFF0040';
+	}
+});
+}
