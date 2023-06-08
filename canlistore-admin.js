@@ -1,4 +1,4 @@
-console.log("lol");
+console.log("lolol");
 // Najděte prvek, který chcete přesunout
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
