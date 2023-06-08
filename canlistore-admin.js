@@ -13,7 +13,7 @@ parentElement.insertBefore(elementToMove, referenceElement);
 
 
 /* označení více jak 1 ks v objednávce */
-if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/'){
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
 	setInterval(function() {
    		var cells = document.querySelectorAll('.v2table__cell--number');
 		cells.forEach(function(cell) {
