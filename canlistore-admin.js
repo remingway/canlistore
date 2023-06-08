@@ -12,7 +12,7 @@ var parentElement = referenceElement.parentNode;
 parentElement.insertBefore(elementToMove, referenceElement);
 
 
-/*označení více jak 1 ks*/
+/*označení více jak 1 ks
 if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/')
 {
 	setInterval(spustitKod, 1000);
@@ -25,3 +25,4 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/')
 		});
 	}
 }
+*/
