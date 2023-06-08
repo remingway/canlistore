@@ -24,46 +24,46 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/'){
 }
 /* END označení více jak 1 ks v objednávce END */
 /* Kontrola Dobírek a přehození do vyřizuje se */
-var divSelectElement = document.querySelectorAll('div.v2FormField__select');
-// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
-var tbody = document.querySelector('tbody');
-var trs = tbody.querySelectorAll('tr');  
-var trsCount = trs.length;
-for (var i = 0; i < trsCount; i++) {
-	var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
-	var spanElement = v2inlines[1].querySelector('span');  
-
-	if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
-		var selectElement = divSelectElement[i].querySelector('select');
-		if(selectElement) selectElement.value = "-2";
-		if(selectElement) selectElement.style.backgroundColor = '#55995555';
+if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/-1/'){
+	var divSelectElement = document.querySelectorAll('div.v2FormField__select');
+	// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
+	var tbody = document.querySelector('tbody');
+	var trs = tbody.querySelectorAll('tr');  
+	var trsCount = trs.length;
+	for (var i = 0; i < trsCount; i++) {
+		var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
+		var spanElement = v2inlines[1].querySelector('span');  
+	
+		if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
+			var selectElement = divSelectElement[i].querySelector('select');
+			if(selectElement) selectElement.value = "-2";
+			if(selectElement) selectElement.style.backgroundColor = '#55995555';
+		}
 	}
 }
 /* END Kontrola Dobírek a přehození do vyřizuje se END */
 
 /* Kontrola Převode/Kartou a přehození do vyřízeno */
-var divSelectElement = document.querySelectorAll('div.v2FormField__select');
-
-
-// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
-var tbody = document.querySelector('tbody');
-var trs = tbody.querySelectorAll('tr');  
-
-var trsCount = trs.length;
-
-for (var i = 0; i < trsCount; i++) {
-	var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
-	var spanElement = v2inlines[1].querySelector('span');  
-
-	if (spanElement && spanElement.textContent.trim() === 'Převodem') {
-		var selectElement = divSelectElement[i].querySelector('select');
-		if(selectElement) selectElement.value = "-3";
-		if(selectElement) selectElement.style.backgroundColor = '#55995555';
-	}
-	else if (spanElement && spanElement.textContent.trim() === 'Kartou') {
-		var selectElement = divSelectElement[i].querySelector('select');
-		if(selectElement) selectElement.value = "-3";
-		if(selectElement) selectElement.style.backgroundColor = '#55995555';
+if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/2/'){
+	var divSelectElement = document.querySelectorAll('div.v2FormField__select');
+	// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
+	var tbody = document.querySelector('tbody');
+	var trs = tbody.querySelectorAll('tr');  
+	var trsCount = trs.length;
+	for (var i = 0; i < trsCount; i++) {
+		var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
+		var spanElement = v2inlines[1].querySelector('span');  
+	
+		if (spanElement && spanElement.textContent.trim() === 'Převodem') {
+			var selectElement = divSelectElement[i].querySelector('select');
+			if(selectElement) selectElement.value = "-3";
+			if(selectElement) selectElement.style.backgroundColor = '#55995555';
+		}
+		else if (spanElement && spanElement.textContent.trim() === 'Kartou') {
+			var selectElement = divSelectElement[i].querySelector('select');
+			if(selectElement) selectElement.value = "-3";
+			if(selectElement) selectElement.style.backgroundColor = '#55995555';
+		}
 	}
 }
 /* END Kontrola Převode/Kartou a přehození do vyřízeno END */
