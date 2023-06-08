@@ -14,7 +14,6 @@ parentElement.insertBefore(elementToMove, referenceElement);
 /* označení více jak 1 ks v objednávce */
 if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/'){
 	setInterval(function() {
-		console.log('Myš ukazuje na prvek s třídou v2table__detailLink.');
    		var cells = document.querySelectorAll('.v2table__cell--number');
 		cells.forEach(function(cell) {
 			if (cell.innerText.trim() != '1 ks' && cell.innerText.trim() != 'Množství'&& cell.innerText.trim() != ''){
@@ -24,3 +23,20 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/'){
 	}, 500);
 }
 /* END označení více jak 1 ks v objednávce END */
+/* Kontrola Dobírek a přehození do vyřizuje se */
+var divSelectElement = document.querySelectorAll('div.v2FormField__select');
+// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
+var tbody = document.querySelector('tbody');
+var trs = tbody.querySelectorAll('tr');  
+var trsCount = trs.length;
+for (var i = 0; i < trsCount; i++) {
+	var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
+	var spanElement = v2inlines[1].querySelector('span');  
+
+	if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
+		var selectElement = divSelectElement[i].querySelector('select');
+		if(selectElement) selectElement.value = "-2";
+		if(selectElement) selectElement.style.backgroundColor = '#55995555';
+	}
+}
+/* END Kontrola Dobírek a přehození do vyřizuje se END */
