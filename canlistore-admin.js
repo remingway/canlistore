@@ -1,4 +1,5 @@
 console.log("test");
+/*
 // Najděte prvek, který chcete přesunout
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
@@ -11,3 +12,4 @@ var parentElement = referenceElement.parentNode;
 // Přesuňte prvek <a> před referenční prvek
 parentElement.insertBefore(elementToMove, referenceElement);
 });
+*/
