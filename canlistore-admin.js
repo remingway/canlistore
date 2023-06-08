@@ -1,5 +1,5 @@
 // Najděte prvek, který chcete přesunout
-console.log("19:59");
+console.log("20:04");
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
 // Najděte referenční prvek, před který chcete přesunout první prvek
@@ -25,7 +25,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 }
 /* END označení více jak 1 ks v objednávce END */
 /* Kontrola Dobírek a přehození do vyřizuje se */
-if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/-1/'){
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/-1/')) {
 	var divSelectElement = document.querySelectorAll('div.v2FormField__select');
 	// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 	var tbody = document.querySelector('tbody');
@@ -45,7 +45,7 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/-1/'){
 /* END Kontrola Dobírek a přehození do vyřizuje se END */
 
 /* Kontrola Převode/Kartou a přehození do vyřízeno */
-if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/2/'){
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/2/')) {
 	var divSelectElement = document.querySelectorAll('div.v2FormField__select');
 	// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 	var tbody = document.querySelector('tbody');
