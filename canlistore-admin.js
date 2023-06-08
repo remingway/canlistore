@@ -11,3 +11,4 @@ var parentElement = referenceElement.parentNode;
 // Přesuňte prvek <a> před referenční prvek
 parentElement.insertBefore(elementToMove, referenceElement);
 });
+console.log("end test");
