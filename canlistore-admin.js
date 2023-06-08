@@ -1,4 +1,5 @@
 // Najděte prvek, který chcete přesunout
+console.log("začátek canlistore-admin");
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
 // Najděte referenční prvek, před který chcete přesunout první prvek
@@ -66,4 +67,5 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/2/'){
 		}
 	}
 }
+console.log("konec canlistore-admin");
 /* END Kontrola Převode/Kartou a přehození do vyřízeno END */
