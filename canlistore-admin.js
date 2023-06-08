@@ -54,13 +54,7 @@ if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/2/'){
 	for (var i = 0; i < trsCount; i++) {
 		var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
 		var spanElement = v2inlines[1].querySelector('span');  
-	
-		if (spanElement && spanElement.textContent.trim() === 'Převodem') {
-			var selectElement = divSelectElement[i].querySelector('select');
-			if(selectElement) selectElement.value = "-3";
-			if(selectElement) selectElement.style.backgroundColor = '#55995555';
-		}
-		else if (spanElement && spanElement.textContent.trim() === 'Kartou') {
+		if (spanElement && (spanElement.textContent.trim() === 'Převodem' || spanElement.textContent.trim() === 'Online platba kartou' || spanElement.textContent.trim() === 'Apple Pay' || spanElement.textContent.trim() === 'Google Pay')) {
 			var selectElement = divSelectElement[i].querySelector('select');
 			if(selectElement) selectElement.value = "-3";
 			if(selectElement) selectElement.style.backgroundColor = '#55995555';
