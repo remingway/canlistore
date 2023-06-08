@@ -11,18 +11,16 @@ var parentElement = referenceElement.parentNode;
 parentElement.insertBefore(elementToMove, referenceElement);
 
 
-/*označení více jak 1 ks
-if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/')
-{
-	setInterval(spustitKod, 1000);
-	function spustitKod() {
-		var cells = document.querySelectorAll('.v2table__cell--number');
+/* označení více jak 1 ks v objednávce */
+if(location.href === 'https://www.canlistore.com/admin/prehled-objednavek/'){
+	setInterval(function() {
+		console.log('Myš ukazuje na prvek s třídou v2table__detailLink.');
+   		var cells = document.querySelectorAll('.v2table__cell--number');
 		cells.forEach(function(cell) {
-			if (cell.innerText.trim() != '1 ks' && cell.innerText.trim() != 'Množství'&& cell.innerText.trim() != '') {
+			if (cell.innerText.trim() != '1 ks' && cell.innerText.trim() != 'Množství'&& cell.innerText.trim() != ''){
 				cell.style.backgroundColor = '#FFFF0040';
 			}
 		});
-	}
+	}, 500);
 }
-
-*/
+/* END označení více jak 1 ks v objednávce END */
