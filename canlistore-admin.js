@@ -1,5 +1,5 @@
 // Najděte prvek, který chcete přesunout
-console.log("16");
+console.log("16:08");
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
 // Najděte referenční prvek, před který chcete přesunout první prvek
