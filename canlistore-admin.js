@@ -24,7 +24,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}, 500);
 }
 /* END označení více jak 1 ks v objednávce END */
-/*document.addEventListener('DOMContentLoaded', function() { /* po načtení stránky */
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
 	console.log("stránka se načetla");
 	/* Kontrola Dobírek a přehození do vyřizuje se */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
@@ -65,5 +65,5 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 		}
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
-/*});*/
+}
 
