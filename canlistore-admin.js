@@ -1,5 +1,5 @@
 // Najděte prvek, který chcete přesunout
-console.log("15:44");
+console.log("16");
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
 // Najděte referenční prvek, před který chcete přesunout první prvek
@@ -24,7 +24,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}, 500);
 }
 /* END označení více jak 1 ks v objednávce END */
-document.addEventListener('DOMContentLoaded', function() { /* po načtení stránky */
+/*document.addEventListener('DOMContentLoaded', function() { /* po načtení stránky */
 	console.log("stránka se načetla");
 	/* Kontrola Dobírek a přehození do vyřizuje se */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
@@ -65,5 +65,5 @@ document.addEventListener('DOMContentLoaded', function() { /* po načtení strá
 		}
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
-});
+/*});*/
 
