@@ -1,5 +1,5 @@
 // Najděte prvek, který chcete přesunout
-console.log("15:04");
+console.log("15:06");
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 
 // Najděte referenční prvek, před který chcete přesunout první prvek
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() { /* po načtení strá
 
 	/* Kontrola Převode/Kartou a přehození do vyřízeno */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[5].classList.contains('active')) {
+	if (dropdownList[3].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll('div.v2FormField__select');
 		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 		var tbody = document.querySelector('tbody');
