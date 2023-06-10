@@ -25,6 +25,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 }
 /* END označení více jak 1 ks v objednávce END */
 document.addEventListener('DOMContentLoaded', function() { /* po načtení stránky */
+	console.log("stránka se načetla");
 	/* Kontrola Dobírek a přehození do vyřizuje se */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[5].classList.contains('active')) {
