@@ -1,4 +1,6 @@
+<style>
 .js-notifier.systemMessage.systemMessage--alert
 {
 	display:none !important;
 }
+</style>
