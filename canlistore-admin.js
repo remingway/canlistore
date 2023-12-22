@@ -64,5 +64,5 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
-console.log("verze 2.0");				
+console.log("verze 2.1");				
 				
