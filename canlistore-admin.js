@@ -59,9 +59,14 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 				var selectElement = divSelectElement[i].querySelector('select');
 				if(selectElement) selectElement.value = "-3";
 				if(selectElement) selectElement.style.backgroundColor = '#55995555';
+
+				console.log("číslo řádku:"+i);
+				console.log(spanElement.textContent.trim());
+
 			}
 		}
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
-
+console.log("Test je aktivní");				
+				
