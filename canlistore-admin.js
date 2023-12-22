@@ -47,7 +47,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	/* Kontrola Převode/Kartou a přehození do vyřízeno */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[3].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll('div.v2FormField__select');
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
 		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 		var tbody = document.querySelector('tbody');
 		var trs = tbody.querySelectorAll('tr');  
@@ -59,14 +59,10 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 				var selectElement = divSelectElement[i].querySelector('select');
 				if(selectElement) selectElement.value = "-3";
 				if(selectElement) selectElement.style.backgroundColor = '#55995555';
-
-				console.log("číslo řádku:"+i);
-				console.log(spanElement.textContent.trim());
-
 			}
 		}
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
-console.log("Test je aktivní");				
+console.log("verze 2.0");				
 				
