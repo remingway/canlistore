@@ -47,7 +47,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	/* Kontrola Převode/Kartou a přehození do vyřízeno */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[3].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll('tbody.tr.td.div.v2FormField__select');
+		var divSelectElement = document.querySelectorAll('tbody tr td div.v2FormField__select');
 		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 		var tbody = document.querySelector('tbody');
 		var trs = tbody.querySelectorAll('tr');  
