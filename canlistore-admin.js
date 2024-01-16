@@ -64,5 +64,35 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
-console.log("verze 2.1");				
+/* Připsat počet dnů k datumu */
+}
+document.addEventListener("DOMContentLoaded", function() {
+    // Seznam všech elementů span s třídou "grey" a "nowrap"
+    var spans = document.querySelectorAll('span.grey.nowrap');
+
+    // Aktuální datum a čas
+    var currentDate = new Date();
+
+    // Pro každý span provedeme operace
+    spans.forEach(function(span) {
+        // Obsah spanu (datum a čas)
+        var dateString = span.textContent.trim();
+
+        // Převedení řetězce na datum
+        var dateParts = dateString.split(' ')[0].split('.');
+        var timeParts = dateString.split(' ')[1].split(':');
+        var dateObject = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]), parseInt(timeParts[0]), parseInt(timeParts[1]));
+
+        // Výpočet rozdílu v dnech
+        var timeDiff = currentDate - dateObject;
+        var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        // Vložení výsledku vedle spanu
+        var resultElement = document.createElement('span');
+        resultElement.textContent = " (" + daysDiff + " day)";
+        span.parentNode.insertBefore(resultElement, span.nextSibling);
+    });
+});
+/* END Připsat počet dnů k datumu END */
+console.log("verze 2.2");				
 				
