@@ -65,7 +65,6 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
 /* Připsat počet dnů k datumu */
-}
 document.addEventListener("DOMContentLoaded", function() {
     // Seznam všech elementů span s třídou "grey" a "nowrap"
     var spans = document.querySelectorAll('span.grey.nowrap');
