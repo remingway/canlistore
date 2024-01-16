@@ -64,7 +64,8 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}
 	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
-/* Připsat počet dnů k datumu */
+
+/* počet dnů u datumu */
 document.addEventListener("DOMContentLoaded", function() {
     // Seznam všech elementů span s třídou "grey" a "nowrap"
     var spans = document.querySelectorAll('span.grey.nowrap');
@@ -92,6 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
         span.parentNode.insertBefore(resultElement, span.nextSibling);
     });
 });
-/* END Připsat počet dnů k datumu END */
-console.log("verze 2.2");				
+/* END počet dnů u datumu END */
+console.log("verze 2.2");
 				
