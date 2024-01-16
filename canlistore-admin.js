@@ -80,5 +80,5 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         span.parentNode.insertBefore(resultElement, span.nextSibling);
     });
 /* END počet dnů u datumu END */
-console.log("verze 2.2");
+console.log("verze 2.3");
 				
