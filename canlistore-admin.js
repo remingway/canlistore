@@ -26,7 +26,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
 	/* Kontrola Dobírek a přehození do vyřizuje se */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[5].classList.contains('active')) {
+	if (dropdownList[6].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
 		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 		var tbody = document.querySelector('tbody');
@@ -44,11 +44,29 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	}
 	/* END Kontrola Dobírek a přehození do vyřizuje se END */
 
-	/* Kontrola Převode/Kartou a přehození do vyřízeno */
+	/* Kontrola osobní odběr a přehození do osobní odběr */
+	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
+	if (dropdownList[6].classList.contains('active')) {
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		var tbody = document.querySelector('tbody');
+		var trs = tbody.querySelectorAll('tr');  
+		var trsCount = trs.length;
+		for (var i = 0; i < trsCount; i++) {
+			var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
+			var spanElement = v2inlines[0].querySelector('span');  
+			if (spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
+				var selectElement = divSelectElement[i].querySelector('select');
+				if(selectElement) selectElement.value = "30";
+				if(selectElement) selectElement.style.backgroundColor = '#55995555';
+			}
+		}
+	}
+	/* END Kontrola osobní odběr a přehození do osobní odběr END */
+
+	/* Kontrola Převode/Kartou a přehození do vyřízeno
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[3].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
-		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
 		var tbody = document.querySelector('tbody');
 		var trs = tbody.querySelectorAll('tr');  
 		var trsCount = trs.length;
@@ -62,7 +80,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 			}
 		}
 	}
-	/* END Kontrola Převode/Kartou a přehození do vyřízeno END */
+	END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
 
 /* počet dnů u datumu */
