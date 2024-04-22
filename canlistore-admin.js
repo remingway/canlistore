@@ -46,7 +46,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 
 	/* Kontrola osobní odběr a přehození do osobní odběr */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[6].classList.contains('active')) {
+	if (dropdownList[5].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
 		var tbody = document.querySelector('tbody');
 		var trs = tbody.querySelectorAll('tr');  
