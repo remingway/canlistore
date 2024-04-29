@@ -98,28 +98,4 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         span.parentNode.insertBefore(resultElement, span.nextSibling);
     });
 /* END počet dnů u datumu END */
-/* zvětšení buňky pro produkty na stránce pokladny - Léňa problém na pc */
-// Funkce pro nastavení max-height
-function setMaxHeight() {
-    // Zkontroluje, zda URL začíná s daným řetězcem
-    if (location.href.startsWith('https://www.canlistore.com/admin/pokladna/')) {
-        var recipientContentDiv = document.getElementById('recipient-content');
-        if (recipientContentDiv) {
-            recipientContentDiv.style.maxHeight = '100%';
-        }
-    }
-}
-
-// Spustí funkci při načtení DOM
-document.addEventListener('DOMContentLoaded', function() {
-    setMaxHeight();
-});
-
-// Spustí funkci při každé změně stránky
-window.addEventListener('hashchange', function() {
-    setMaxHeight();
-});
-
-/* END zvětšení buňky pro produkty na stránce pokladny - Léňa problém na pc END */
-console.log("verze 2.8");
-				
+console.log("verze 2.9");
