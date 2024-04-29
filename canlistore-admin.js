@@ -103,7 +103,6 @@ if(location.href.startsWith('https://www.canlistore.com/admin/pokladna/')) {
 	var recipientContentDiv = document.getElementById('recipient-content');
 	if (recipientContentDiv) {
 		recipientContentDiv.style.maxHeight = '100%';
-		recipientContent.style.setProperty('max-height', '100%', 'important');
 	}
 }
 /* END zvětšení buňky pro produkty na stránce pokladny - Léňa problém na pc END */
