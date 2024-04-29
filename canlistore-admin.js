@@ -100,11 +100,11 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 /* END počet dnů u datumu END */
 /* zvětšení buňky pro produkty na stránce pokladny - Léňa problém na pc */
 if(location.href.startsWith('https://www.canlistore.com/admin/pokladna/')) {
-	var recipientContentDiv = document.querySelector('div#recipient-content.editable');
+	var recipientContentDiv = document.getElementById('recipient-content');
 	if (recipientContentDiv) {
 		recipientContentDiv.style.maxHeight = '100% !important';
 	}
 }
 /* END zvětšení buňky pro produkty na stránce pokladny - Léňa problém na pc END */
-console.log("verze 2.5");
+console.log("verze 2.6");
 				
