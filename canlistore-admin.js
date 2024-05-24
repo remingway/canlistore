@@ -1,16 +1,23 @@
-// Najděte prvek, který chcete přesunout
+/* přesunout zasilkovna + do objednávek */
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
-
-// Najděte referenční prvek, před který chcete přesunout první prvek
 var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
-
-// Získejte nadřazený prvek, který obaluje oba prvky <a>
 var parentElement = referenceElement.parentNode;
-
-// Přesuňte prvek <a> před referenční prvek
 parentElement.insertBefore(elementToMove, referenceElement);
-
-
+/* END přesunout zasilkovna + do objednávek END */
+/* zasilkovna+ označení "vyřizuje se" */
+if(location.href.startsWith('https://www.canlistore.com/admin/zasilkovna-plugin/')) {
+	var iframe = document.getElementById('partner-iframe');
+	if (iframe) {
+        	iframe.addEventListener('load', function() {
+        		var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        		var selectElement = iframeDocument.getElementById('filter_orders_form_orderStatus');
+			if (selectElement) {
+                		selectElement.value = "-2";
+                		selectElement.style.backgroundColor = '#55995555';
+            		}
+        	});
+    }
+/* END zasilkovna+ označení "vyřizuje se" END */	
 /* označení více jak 1 ks v objednávce */
 if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
 	setInterval(function() {
