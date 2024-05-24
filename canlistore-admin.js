@@ -16,6 +16,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/zasilkovna-plugin/
                 		selectElement.style.backgroundColor = '#55995555';
             		}
         	});
+	}
     }
 /* END zasilkovna+ označení "vyřizuje se" END */	
 /* označení více jak 1 ks v objednávce */
