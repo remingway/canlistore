@@ -69,6 +69,22 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 			}
 		}
 	}
+	if (dropdownList[6].classList.contains('active')) {
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		var tbody = document.querySelector('tbody');
+		var trs = tbody.querySelectorAll('tr');  
+		var trsCount = trs.length;
+		for (var i = 0; i < trsCount; i++) {
+			var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
+			var spanElement = v2inlines[0].querySelector('span');  
+			var spanElementPay = v2inlines[1].querySelector('span');  
+			if (spanElementPay && spanElementPay.textContent.trim() === 'Převodem' && spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
+				var selectElement = divSelectElement[i].querySelector('select');
+				if(selectElement) selectElement.value = "30";
+				if(selectElement) selectElement.style.backgroundColor = '#55995555';
+			}
+		}
+	}
 	/* END Kontrola osobní odběr a přehození do osobní odběr END */
 
 	/* Kontrola Převode/Kartou a přehození do vyřízeno
@@ -106,4 +122,4 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         span.parentNode.insertBefore(resultElement, span.nextSibling);
     });
 /* END počet dnů u datumu END */
-console.log("verze 3.0");
+console.log("verze 3.1");
