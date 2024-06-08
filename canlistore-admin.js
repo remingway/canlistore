@@ -119,9 +119,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 				const parentTr = span.closest('tr');
         const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
-        if (selectField1) {
-        	selectField1.textContent += " (" + daysDiff + ")";
-	}
+        if (selectField1) {selectField1.textContent += "\u00A0(" + daysDiff + ")";}
     });
 /* END počet dnů u datumu END */
-console.log("verze 3.7");
+console.log("verze 3.8");
