@@ -117,15 +117,11 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         var dateObject = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]), parseInt(timeParts[0]), parseInt(timeParts[1]));
         var timeDiff = currentDate - dateObject;
         var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-        var resultElement = document.createElement('span');
-        resultElement.textContent = " (" + daysDiff + ")";
-        span.parentNode.insertBefore(resultElement, span);
-
-	const parentTr = span.closest('tr');
-        const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
+				const parentTr = span.closest('tr');
+        const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
         if (selectField1) {
-        	selectField1.textContent = resultElement;
+        	selectField1.textContent += " (" + daysDiff + ")";
 	}
     });
 /* END počet dnů u datumu END */
-console.log("verze 3.6");
+console.log("verze 3.7");
