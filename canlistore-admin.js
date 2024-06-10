@@ -158,12 +158,13 @@ function handleFileSelect(event) {
 	reader.onload = function(event) {
 		const csv = event.target.result;
 		const lines = csv.split('\n');
-		data = []; // Při každém novém nahrání souboru se data obnoví
+		data = [];
 		lines.forEach(function(line) {
 			const columns = line.split(';').map(cell => cell.replace(/"/g, ''));
 			const objednavka = columns[3];
 			const stav = columns[11];
-			data.push({ objednavka, stav });
+			const datum = comuns[12];
+			data.push({ objednavka, stav, datum });
 		});
 	checkOrdersOnPage();
 	};
@@ -182,8 +183,11 @@ function checkOrdersOnPage() {
 			if (selectField1) {
               			selectField1.textContent = hledanaObjednavka.stav;
                 	}
+			if (hledanaObjednavka.stav === 'Připravena k výdeji') {
+				selectField1.textContent = hledanaObjednavka.stav + hledanaObjednavka.datum;
+			}
 			if (hledanaObjednavka.stav === 'Doručena') {
-                		const parentTr = objednavkaElement.closest('tr'); // Najdi nejbližší předka typu 'tr'
+                		const parentTr = objednavkaElement.closest('tr');
 				const selectField2 = parentTr.querySelector('.selectField.sm');
 				if (selectField2) {
 					selectField2.value = "-3";
@@ -197,4 +201,4 @@ function checkOrdersOnPage() {
 }
 
 /* END kontrola stavu zásilek - odeslané END */
-console.log("verze 4.0");
+console.log("verze 4.1");
