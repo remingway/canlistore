@@ -108,26 +108,93 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 }
 
 /* počet dnů u datumu */
-    var spans = document.querySelectorAll('span.grey.nowrap');
-    var currentDate = new Date();
-    spans.forEach(function(span) {
-        var dateString = span.textContent.trim();
-        var dateParts = dateString.split(' ')[0].split('.');
-        var timeParts = dateString.split(' ')[1].split(':');
-        var dateObject = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]), parseInt(timeParts[0]), parseInt(timeParts[1]));
-        var timeDiff = currentDate - dateObject;
-        var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-				const parentTr = span.closest('tr');
-        const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
-        if (selectField1.nextSibling)
-	{
-		let newSpan = document.createElement('span');
-		newSpan.textContent += "\u00A0(" + daysDiff + ")";
-		selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
-	}
-    });
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
+	var spans = document.querySelectorAll('span.grey.nowrap');
+	var currentDate = new Date();
+	spans.forEach(function(span) {
+    	    var dateString = span.textContent.trim();
+    	    var dateParts = dateString.split(' ')[0].split('.');
+    	    var timeParts = dateString.split(' ')[1].split(':');
+    	    var dateObject = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]), parseInt(timeParts[0]), parseInt(timeParts[1]));
+    	    var timeDiff = currentDate - dateObject;
+    	    var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+		const parentTr = span.closest('tr');
+        	const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
+        	if (selectField1.nextSibling)
+		{
+			let newSpan = document.createElement('span');
+			newSpan.textContent += "\u00A0(" + daysDiff + ")";
+			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
+		}
+    	});
+}
 /* END počet dnů u datumu END */
 
-/**/
-/**/
-console.log("verze 3.9");
+/* kontrola stavu zásilek - odeslané*/
+var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
+if (dropdownLists[3].classList.contains('active')) {
+	const contentDiv = document.getElementById('bank-connection-fail-message');
+	var button = document.createElement("button");
+	button.innerHTML = "download zasilkovna-file";
+	button.style.margin = "10px 20px";
+	button.style.border = "1px solid";
+	button.style.borderRadius = "2px";
+	button.style.transform = "translate(0px, 1px)";
+	button.addEventListener("click", function() { window.open("https://client.packeta.com/cs/packets/list?list-id=1&do=list-export");});
+	contentDiv.appendChild(button);
+
+	const fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.setAttribute('id', 'csvFileInput');
+        fileInput.setAttribute('accept', '.csv');
+        contentDiv.appendChild(fileInput);
+        document.getElementById('csvFileInput').addEventListener('change', handleFileSelect, false);
+
+        let data = []; // Data budou globální pro možnost opakované kontroly
+}
+function handleFileSelect(event) {
+	const file = event.target.files[0];
+	const reader = new FileReader();
+	reader.onload = function(event) {
+		const csv = event.target.result;
+		const lines = csv.split('\n');
+		data = []; // Při každém novém nahrání souboru se data obnoví
+		lines.forEach(function(line) {
+			const columns = line.split(';').map(cell => cell.replace(/"/g, ''));
+			const objednavka = columns[3];
+			const stav = columns[11];
+			data.push({ objednavka, stav });
+		});
+	checkOrdersOnPage();
+	};
+reader.readAsText(file);
+}
+function checkOrdersOnPage() {
+	const objednavkyNaStrance = document.querySelectorAll('[data-testid="orderCode"]');
+	objednavkyNaStrance.forEach(function(objednavkaElement) {
+		const objednavkaKod = objednavkaElement.textContent;
+		const hledanaObjednavka = data.find(function(item) {
+			return item.objednavka === objednavkaKod;
+		});
+		if (hledanaObjednavka) {
+			const parentTr = objednavkaElement.closest('tr');
+			const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
+			if (selectField1) {
+              			selectField1.textContent = hledanaObjednavka.stav;
+                	}
+			if (hledanaObjednavka.stav === 'Doručena') {
+                		const parentTr = objednavkaElement.closest('tr'); // Najdi nejbližší předka typu 'tr'
+				const selectField2 = parentTr.querySelector('.selectField.sm');
+				if (selectField2) {
+					selectField2.value = "-3";
+					selectField2.style.backgroundColor = '#55995555';
+				}
+			}
+		} else {
+			objednavkaElement.textContent += ' - Objednávka nebyla nalezena';
+		}
+	});
+}
+
+/* END kontrola stavu zásilek - odeslané END */
+console.log("verze 4.0");
