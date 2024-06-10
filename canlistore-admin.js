@@ -199,7 +199,6 @@ function checkOrdersOnPage() {
 		}
 	});
 }
-});
 /* END kontrola stavu zásilek - odeslané END */
 
 console.log("verze 4.3");
