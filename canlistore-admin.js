@@ -195,10 +195,14 @@ function checkOrdersOnPage() {
 				}
 			}
 		} else {
-			objednavkaElement.textContent += ' - Objednávka nebyla nalezena';
+			const parentTr = objednavkaElement.closest('tr');
+			const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
+			if (selectField1) {
+              			selectField1.textContent = "Objednávka nebyla nalezena";
+                	}
 		}
 	});
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 4.3");
+console.log("verze 4.4");
