@@ -199,10 +199,11 @@ function checkOrdersOnPage() {
 			const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
 			if (selectField1) {
               			selectField1.textContent = "Objednávka nebyla nalezena";
+				selectField2.style.backgroundColor = '#99555555';
                 	}
 		}
 	});
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 4.4");
+console.log("verze 4.5");
