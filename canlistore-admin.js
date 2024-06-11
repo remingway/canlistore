@@ -184,24 +184,20 @@ function checkOrdersOnPage() {
               			selectField1.textContent = hledanaObjednavka.stav;
                 	}
 			if (hledanaObjednavka.stav === 'Připravena k výdeji') {
-				selectField1.textContent = "Ready to: " + hledanaObjednavka.datum;
-
-
-
 				const targetDateParts = hledanaObjednavka.datum.split('.');
 				const targetDate = new Date(`20${targetDateParts[2]}-${targetDateParts[1]}-${targetDateParts[0]}`);
 				const today = new Date();
 				today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for accurate comparison
 				const timeDiff = targetDate - today;
 				const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-				if (daysDiff === 1) {
+				selectField1.textContent = "Ready to: " + hledanaObjednavka.datum + " (" + daysDiff + ")";
+				if (daysDiff == 1) {
+					selectField1.style.backgroundColor = '#99555555';
 					
+				}
+				else if (daysDiff == 3 || daysDiff == 2) {
+					selectField1.style.backgroundColor = '#99995555';
 				}	
-				console.log(`Days remaining: ${daysDiff}`);
-
-
-
-				
 			}
 			if (hledanaObjednavka.stav === 'Doručena') {
                 		const parentTr = objednavkaElement.closest('tr');
@@ -223,4 +219,4 @@ function checkOrdersOnPage() {
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 4.6");
+console.log("verze 4.7");
