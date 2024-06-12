@@ -123,7 +123,7 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
         	if (selectField1.nextSibling)
 		{
 			let newSpan = document.createElement('span');
-			newSpan.textContent += "\u00A0(" + daysDiff + ")";
+			newSpan.textContent += "\u00A0(" + daysDiff-1 + ")";
 			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
 		}
     	});
@@ -219,4 +219,4 @@ function checkOrdersOnPage() {
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 4.7");
+console.log("verze 4.8");
