@@ -199,6 +199,8 @@ function checkOrdersOnPage() {
 				}
 				else if (daysDiff == 3 || daysDiff == 2) {
 					selectField1.style.backgroundColor = '#99995555';
+					selectField1.style.padding =  "0px 10px 0px 10px";
+					selectField1.style.borderRadius = "10px";
 				}	
 			}
 			if (hledanaObjednavka.stav === 'Doručena') {
