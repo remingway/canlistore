@@ -193,6 +193,8 @@ function checkOrdersOnPage() {
 				selectField1.textContent = "Ready to: " + hledanaObjednavka.datum + " (" + daysDiff + ")";
 				if (daysDiff == 1) {
 					selectField1.style.backgroundColor = '#99555555';
+					selectField1.style.padding =  "0px 10px 0px 10px";
+					selectField1.style.borderRadius = "10px";
 					
 				}
 				else if (daysDiff == 3 || daysDiff == 2) {
@@ -213,10 +215,11 @@ function checkOrdersOnPage() {
 			if (selectField1) {
               			selectField1.textContent = "Objednávka nebyla nalezena";
 				selectField1.style.backgroundColor = '#99555555';
+				
                 	}
 		}
 	});
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 5.0");
+console.log("verze 5.1");
