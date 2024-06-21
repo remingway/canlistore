@@ -6,14 +6,19 @@ parentElement.insertBefore(elementToMove, referenceElement);
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
 if(location.href.startsWith('https://www.canlistore.com/admin/zasilkovna-plugin/')) {
-	var iframe = document.getElementById('partner-iframe');
+	var iframe = document.getElementById('partner-iframe');š
 	if (iframe) {
         	iframe.addEventListener('load', function() {
         		var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        		var selectElement = iframeDocument.getElementById('filter_orders_form_orderStatus');
-			if (selectElement) {
-                		selectElement.value = "-2";
-                		selectElement.style.backgroundColor = '#55995555';
+        		var SelectFilertElement = iframeDocument.getElementById('filter_orders_form_orderStatus');
+			if (SelectFilertElement) {
+                		SelectFilertElement.value = "-2";
+                		SelectFilertElement.style.backgroundColor = '#55995555';
+            		}
+            		var SelectOrdersElement = iframeDocument.getElementById('orders_overview_form_massAction_type');
+            		if (SelectOrdersElement) {
+                		SelectOrdersElement.value = "createPacketsAndCreatePrintLabelsLinks";  // Vybere "Tisknout štítek"
+                		SelectOrdersElement.style.backgroundColor = '#55995555';  // Změna barvy pozadí pro vizuální potvrzení
             		}
         	});
 	}
