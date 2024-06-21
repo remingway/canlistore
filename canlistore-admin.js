@@ -229,4 +229,4 @@ function checkOrdersOnPage() {
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 5.2");
+console.log("verze 5.3");
