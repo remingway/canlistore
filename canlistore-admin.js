@@ -190,7 +190,7 @@ function checkOrdersOnPage() {
 				today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for accurate comparison
 				const timeDiff = targetDate - today;
 				const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
-				selectField1.textContent = "Ready&nbsp;to: " + hledanaObjednavka.datum + "&nbsp;(" + daysDiff + ")";
+				selectField1.textContent = "Ready to: " + hledanaObjednavka.datum + " (" + daysDiff + ")";
 				if (daysDiff == 1) {
 					selectField1.style.backgroundColor = '#99555555';
 					selectField1.style.padding =  "0px 10px 0px 10px";
@@ -224,4 +224,4 @@ function checkOrdersOnPage() {
 }
 /* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 5.1");
+console.log("verze 5.2");
