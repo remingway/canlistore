@@ -6,7 +6,7 @@ parentElement.insertBefore(elementToMove, referenceElement);
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
 if(location.href.startsWith('https://www.canlistore.com/admin/zasilkovna-plugin/')) {
-	var iframe = document.getElementById('partner-iframe');š
+	var iframe = document.getElementById('partner-iframe');
 	if (iframe) {
         	iframe.addEventListener('load', function() {
         		var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
