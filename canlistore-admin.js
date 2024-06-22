@@ -136,97 +136,164 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 /* END počet dnů u datumu END */
 
 /* kontrola stavu zásilek - odeslané*/
-var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
-if (dropdownLists[3].classList.contains('active')) {
-	const contentDiv = document.getElementById('bank-connection-fail-message');
-	var button = document.createElement("button");
-	button.innerHTML = "download zasilkovna-file";
-	button.style.margin = "10px 20px";
-	button.style.border = "1px solid";
-	button.style.borderRadius = "2px";
-	button.style.transform = "translate(0px, 1px)";
-	button.addEventListener("click", function() { window.open("https://client.packeta.com/cs/packets/list?list-id=1&do=list-export");});
-	contentDiv.appendChild(button);
-
-	const fileInput = document.createElement('input');
-        fileInput.setAttribute('type', 'file');
-        fileInput.setAttribute('id', 'csvFileInput');
-        fileInput.setAttribute('accept', '.csv');
-        contentDiv.appendChild(fileInput);
-        document.getElementById('csvFileInput').addEventListener('change', handleFileSelect, false);
-
-        let data = []; // Data budou globální pro možnost opakované kontroly
-}
-function handleFileSelect(event) {
-	const file = event.target.files[0];
-	const reader = new FileReader();
-	reader.onload = function(event) {
-		const csv = event.target.result;
-		const lines = csv.split('\n');
-		data = [];
-		lines.forEach(function(line) {
-			const columns = line.split(';').map(cell => cell.replace(/"/g, ''));
-			const objednavka = columns[3];
-			const stav = columns[11];
-			const datum = columns[12];
-			data.push({ objednavka, stav, datum });
-		});
-	checkOrdersOnPage();
-	};
-reader.readAsText(file);
-}
-function checkOrdersOnPage() {
-	const objednavkyNaStrance = document.querySelectorAll('[data-testid="orderCode"]');
-	objednavkyNaStrance.forEach(function(objednavkaElement) {
-		const objednavkaKod = objednavkaElement.textContent;
-		const hledanaObjednavka = data.find(function(item) {
-			return item.objednavka === objednavkaKod;
-		});
-		if (hledanaObjednavka) {
-			const parentTr = objednavkaElement.closest('tr');
-			const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
-			if (selectField1) {
-              			selectField1.textContent = hledanaObjednavka.stav;
-                	}
-			if (hledanaObjednavka.stav === 'Připravena k výdeji') {
-				const targetDateParts = hledanaObjednavka.datum.split('.');
-				const targetDate = new Date(`20${targetDateParts[2]}-${targetDateParts[1]}-${targetDateParts[0]}`);
-				const today = new Date();
-				today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for accurate comparison
-				const timeDiff = targetDate - today;
-				const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
-				selectField1.textContent = "Ready to: " + hledanaObjednavka.datum + " (" + daysDiff + ")";
-				if (daysDiff == 1) {
+if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
+	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
+	if (dropdownLists[3].classList.contains('active')) {
+		const contentDiv = document.getElementById('bank-connection-fail-message');
+		var button = document.createElement("button");
+		button.innerHTML = "download zasilkovna-file";
+		button.style.margin = "10px 20px";
+		button.style.border = "1px solid";
+		button.style.borderRadius = "2px";
+		button.style.transform = "translate(0px, 1px)";
+		button.addEventListener("click", function() { window.open("https://client.packeta.com/cs/packets/list?list-id=1&do=list-export");});
+		contentDiv.appendChild(button);
+	
+		const fileInput = document.createElement('input');
+	        fileInput.setAttribute('type', 'file');
+	        fileInput.setAttribute('id', 'csvFileInput');
+	        fileInput.setAttribute('accept', '.csv');
+	        contentDiv.appendChild(fileInput);
+	        document.getElementById('csvFileInput').addEventListener('change', handleFileSelect, false);
+	
+	        let data = []; // Data budou globální pro možnost opakované kontroly
+	}
+	function handleFileSelect(event) {
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		reader.onload = function(event) {
+			const csv = event.target.result;
+			const lines = csv.split('\n');
+			data = [];
+			lines.forEach(function(line) {
+				const columns = line.split(';').map(cell => cell.replace(/"/g, ''));
+				const objednavka = columns[3];
+				const stav = columns[11];
+				const datum = columns[12];
+				data.push({ objednavka, stav, datum });
+			});
+		checkOrdersOnPage();
+		};
+	reader.readAsText(file);
+	}
+	function checkOrdersOnPage() {
+		const objednavkyNaStrance = document.querySelectorAll('[data-testid="orderCode"]');
+		objednavkyNaStrance.forEach(function(objednavkaElement) {
+			const objednavkaKod = objednavkaElement.textContent;
+			const hledanaObjednavka = data.find(function(item) {
+				return item.objednavka === objednavkaKod;
+			});
+			if (hledanaObjednavka) {
+				const parentTr = objednavkaElement.closest('tr');
+				const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
+				if (selectField1) {
+	              			selectField1.textContent = hledanaObjednavka.stav;
+	                	}
+				if (hledanaObjednavka.stav === 'Připravena k výdeji') {
+					const targetDateParts = hledanaObjednavka.datum.split('.');
+					const targetDate = new Date(`20${targetDateParts[2]}-${targetDateParts[1]}-${targetDateParts[0]}`);
+					const today = new Date();
+					today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for accurate comparison
+					const timeDiff = targetDate - today;
+					const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
+					selectField1.textContent = "Ready to: " + hledanaObjednavka.datum + " (" + daysDiff + ")";
+					if (daysDiff == 1) {
+						selectField1.style.backgroundColor = '#99555555';
+						selectField1.style.padding =  "0px 10px 0px 10px";
+						selectField1.style.borderRadius = "10px";
+						
+					}
+					else if (daysDiff == 3 || daysDiff == 2) {
+						selectField1.style.backgroundColor = '#99995555';
+						selectField1.style.padding =  "0px 10px 0px 10px";
+						selectField1.style.borderRadius = "10px";
+					}	
+				}
+				if (hledanaObjednavka.stav === 'Doručena') {
+	                		const parentTr = objednavkaElement.closest('tr');
+					const selectField2 = parentTr.querySelector('.selectField.sm');
+					if (selectField2) {
+						selectField2.value = "-3";
+						selectField2.style.backgroundColor = '#55995555';
+					}
+				}
+			} else {
+				const parentTr = objednavkaElement.closest('tr');
+				const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
+				if (selectField1) {
+	              			selectField1.textContent = "Objednávka nebyla nalezena";
 					selectField1.style.backgroundColor = '#99555555';
-					selectField1.style.padding =  "0px 10px 0px 10px";
-					selectField1.style.borderRadius = "10px";
 					
-				}
-				else if (daysDiff == 3 || daysDiff == 2) {
-					selectField1.style.backgroundColor = '#99995555';
-					selectField1.style.padding =  "0px 10px 0px 10px";
-					selectField1.style.borderRadius = "10px";
-				}	
+	                	}
 			}
-			if (hledanaObjednavka.stav === 'Doručena') {
-                		const parentTr = objednavkaElement.closest('tr');
-				const selectField2 = parentTr.querySelector('.selectField.sm');
-				if (selectField2) {
-					selectField2.value = "-3";
-					selectField2.style.backgroundColor = '#55995555';
-				}
-			}
-		} else {
-			const parentTr = objednavkaElement.closest('tr');
-			const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
-			if (selectField1) {
-              			selectField1.textContent = "Objednávka nebyla nalezena";
-				selectField1.style.backgroundColor = '#99555555';
-				
+		});
+	}
+}
+	
+/* END kontrola stavu zásilek - odeslané END */
+/* přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" */
+
+if (document.querySelector('tbody')) {
+	document.addEventListener('DOMContentLoaded', (event) => {
+
+    	const toggleButtonElement = document.querySelector('.content-buttons');
+
+    	const buttonSpan = document.createElement('span');
+    	const buttonA = document.createElement('a');
+    	buttonA.id = 'toggleTabindex';
+    	buttonA.className = 'btn btn-sm btn-primary';
+    	buttonA.textContent = 'column tab';
+    	buttonA.title = 'tabování po sloupcích';
+
+    	buttonSpan.appendChild(buttonA);
+    	toggleButtonElement.insertBefore(buttonSpan, toggleButtonElement.firstChild);
+
+
+    	let tabindexEnabled = localStorage.getItem('tabindexEnabled') === 'true';
+
+    	const button = document.getElementById('toggleTabindex');
+
+    	if (tabindexEnabled) {applyTabindex();}
+    	else {removeTabindex();}
+
+    	button.addEventListener('click', () => {
+    	    if (tabindexEnabled) {removeTabindex();}
+    	    else {applyTabindex();}
+        	tabindexEnabled = !tabindexEnabled;
+        	localStorage.setItem('tabindexEnabled', tabindexEnabled);
+    	});
+
+    	function applyTabindex() {
+    	    document.querySelectorAll('tbody').forEach((tbody) => {
+    	        const rows = Array.from(tbody.querySelectorAll('tr'));
+    	        const colsCount = rows[0].querySelectorAll('td').length;
+    	        for (let col = 0; col < colsCount; col++) {
+    	            for (let row = 0; row < rows.length; row++) {
+    	                const cell = rows[row].querySelectorAll('td')[col];
+    	                if (cell) {
+    	                    const inputs = cell.querySelectorAll('input, select, a');
+    	                    inputs.forEach((input) => {
+    	                        input.setAttribute('tabindex', (col * rows.length) + row + 1);
+							});
+                    	}
                 	}
-		}
+            	}
+        	});
+        	button.textContent = 'Tabindex';
+        	button.style.removeProperty('background-color');
+	    }
+	    function removeTabindex() {
+	        document.querySelectorAll('tbody').forEach((tbody) => {
+	            tbody.querySelectorAll('input, select, a').forEach((input) => {
+	                input.removeAttribute('tabindex');
+	            });
+	        });
+	        button.textContent = 'Tabindex';
+	        button.style.backgroundColor = '#00000055';
+	   	}
 	});
 }
-/* END kontrola stavu zásilek - odeslané END */
 
-console.log("verze 5.4");
+/* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
+
+console.log("verze 5.5");
