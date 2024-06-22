@@ -234,18 +234,20 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 /* přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" */
 if (document.querySelector('tbody')) {
 
-    	const toggleButtonElement = document.querySelector('.content-buttons');
+	if(location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
+		
+    		const toggleButtonElement = document.querySelector('.content-buttons');
 
-    	const buttonSpan = document.createElement('span');
-    	const buttonA = document.createElement('a');
-    	buttonA.id = 'toggleTabindex';
-    	buttonA.className = 'btn btn-sm btn-primary';
-    	buttonA.textContent = 'column tab';
-    	buttonA.title = 'tabování po sloupcích';
+    		const buttonSpan = document.createElement('span');
+    		const buttonA = document.createElement('a');
+    		buttonA.id = 'toggleTabindex';
+    		buttonA.className = 'btn btn-sm btn-primary';
+    		buttonA.textContent = 'column tab';
+    		buttonA.title = 'tabování po sloupcích';
 
-    	buttonSpan.appendChild(buttonA);
-    	toggleButtonElement.insertBefore(buttonSpan, toggleButtonElement.firstChild);
-
+    		buttonSpan.appendChild(buttonA);
+    		toggleButtonElement.insertBefore(buttonSpan, toggleButtonElement.firstChild);
+	}
 
     	let tabindexEnabled = localStorage.getItem('tabindexEnabled') === 'true';
 
