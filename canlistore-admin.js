@@ -295,4 +295,4 @@ if (document.querySelector('tbody')) {
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 
-console.log("verze 5.7");
+console.log("verze 5.8");
