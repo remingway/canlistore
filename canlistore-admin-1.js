@@ -278,7 +278,7 @@ if (document.querySelector('tbody')) {
                 		}
             		}
         	});
-		if(buttonA){
+		if (typeof buttonSpan !== 'undefined') {
 	               	button.textContent = 'Tabindex';
         		button.style.removeProperty('background-color');
 		}
@@ -289,7 +289,7 @@ if (document.querySelector('tbody')) {
 	                input.removeAttribute('tabindex');
 	            });
 	        });
-		if(buttonA){
+		if (typeof buttonSpan !== 'undefined') {
 		        button.textContent = 'Tabindex';
 		        button.style.backgroundColor = '#00000055';
 		}
