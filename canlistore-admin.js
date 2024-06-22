@@ -262,25 +262,26 @@ if (document.querySelector('tbody')) {
         	tabindexEnabled = !tabindexEnabled;
         	localStorage.setItem('tabindexEnabled', tabindexEnabled);
     	});
-
-    	function applyTabindex() {
-    	    document.querySelectorAll('tbody').forEach((tbody) => {
-    	        const rows = Array.from(tbody.querySelectorAll('tr'));
-    	        const colsCount = rows[0].querySelectorAll('td').length;
-    	        for (let col = 0; col < colsCount; col++) {
-    	            for (let row = 0; row < rows.length; row++) {
-    	                const cell = rows[row].querySelectorAll('td')[col];
-    	                if (cell) {
-    	                    const inputs = cell.querySelectorAll('input, select, a');
-    	                    inputs.forEach((input) => {
-    	                        input.setAttribute('tabindex', (col * rows.length) + row + 1);
-							});
-                    	}
-                	}
-            	}
+	function applyTabindex() {
+    		document.querySelectorAll('tbody').forEach((tbody) => {
+    	        	const rows = Array.from(tbody.querySelectorAll('tr'));
+    	        	const colsCount = rows[0].querySelectorAll('td').length;
+    	        	for (let col = 0; col < colsCount; col++) {
+    	        		for (let row = 0; row < rows.length; row++) {
+    	                		const cell = rows[row].querySelectorAll('td')[col];
+    	                		if (cell) {
+    	                    			const inputs = cell.querySelectorAll('input, select, a');
+    	                    			inputs.forEach((input) => {
+    	                        			input.setAttribute('tabindex', (col * rows.length) + row + 1);
+						});
+                    			}
+                		}
+            		}
         	});
-        	button.textContent = 'Tabindex';
-        	button.style.removeProperty('background-color');
+		if(botton){
+	               	button.textContent = 'Tabindex';
+        		button.style.removeProperty('background-color');
+		}
 	    }
 	    function removeTabindex() {
 	        document.querySelectorAll('tbody').forEach((tbody) => {
@@ -288,9 +289,11 @@ if (document.querySelector('tbody')) {
 	                input.removeAttribute('tabindex');
 	            });
 	        });
-	        button.textContent = 'Tabindex';
-	        button.style.backgroundColor = '#00000055';
-	   	}
+		if(botton){
+		        button.textContent = 'Tabindex';
+		        button.style.backgroundColor = '#00000055';
+		}
+	    }
 }
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
