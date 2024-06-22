@@ -256,7 +256,7 @@ if (document.querySelector('tbody')) {
     	if (tabindexEnabled) {applyTabindex();}
     	else {removeTabindex();}
 	if(location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-    		buttonA.addEventListener('click', () => {
+    		button.addEventListener('click', () => {
     		    if (tabindexEnabled) {removeTabindex();}
     		    else {applyTabindex();}
         		tabindexEnabled = !tabindexEnabled;
