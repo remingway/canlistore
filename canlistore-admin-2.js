@@ -255,13 +255,14 @@ if (document.querySelector('tbody')) {
 
     	if (tabindexEnabled) {applyTabindex();}
     	else {removeTabindex();}
-
-    	button.addEventListener('click', () => {
-    	    if (tabindexEnabled) {removeTabindex();}
-    	    else {applyTabindex();}
-        	tabindexEnabled = !tabindexEnabled;
-        	localStorage.setItem('tabindexEnabled', tabindexEnabled);
-    	});
+	if(location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
+    		buttonA.addEventListener('click', () => {
+    		    if (tabindexEnabled) {removeTabindex();}
+    		    else {applyTabindex();}
+        		tabindexEnabled = !tabindexEnabled;
+        		localStorage.setItem('tabindexEnabled', tabindexEnabled);
+    		});
+	}	
 	function applyTabindex() {
     		document.querySelectorAll('tbody').forEach((tbody) => {
     	        	const rows = Array.from(tbody.querySelectorAll('tr'));
