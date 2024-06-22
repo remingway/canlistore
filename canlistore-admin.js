@@ -232,8 +232,12 @@ if(location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek
 	
 /* END kontrola stavu zásilek - odeslané END */
 /* přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" */
-
+console.log("ano1");
+if (!document.querySelector('tbody')) {
+	console.log("ne");
+}
 if (document.querySelector('tbody')) {
+	console.log("ano2");
 	document.addEventListener('DOMContentLoaded', (event) => {
 
     	const toggleButtonElement = document.querySelector('.content-buttons');
@@ -296,4 +300,4 @@ if (document.querySelector('tbody')) {
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 
-console.log("verze 5.5");
+console.log("verze 5.6");
