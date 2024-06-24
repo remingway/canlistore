@@ -236,7 +236,7 @@ if (document.querySelector('tbody')) {
 
 	if(location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
 		
-    		const toggleButtonElement = document.querySelector('.content-buttons');
+    		const toggleButtonElement = document.querySelector('.navigation__link .navigation__link--422navigation__link--hasSubmenu .jsTriggerSubmenu');
 
     		const buttonSpan = document.createElement('span');
     		const buttonA = document.createElement('a');
