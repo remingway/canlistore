@@ -362,7 +362,7 @@ if (document.querySelector('tbody')) {
 			}
 		});
 		if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-			button.textContent = 'Tabindex';
+			button.textContent = 'column tab';
 			button.style.removeProperty('background-color');
 		}
 	}
@@ -373,7 +373,7 @@ if (document.querySelector('tbody')) {
 			});
 		});
 		if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-			button.textContent = 'Tabindex';
+			button.textContent = 'column tab';
 			button.style.backgroundColor = '#00000055';
 		}
 	}
@@ -381,4 +381,4 @@ if (document.querySelector('tbody')) {
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 
-console.log('verze 6.3');
+console.log('verze 6.4');
