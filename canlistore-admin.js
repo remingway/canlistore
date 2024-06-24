@@ -7,8 +7,10 @@ var referenceElement = document.querySelector(
 );
 var parentElement = referenceElement.parentNode;
 parentElement.insertBefore(elementToMove, referenceElement);
+
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
+
 if (
 	location.href.startsWith(
 		'https://www.canlistore.com/admin/zasilkovna-plugin/'
@@ -36,8 +38,10 @@ if (
 		});
 	}
 }
+
 /* END zasilkovna+ označení "vyřizuje se" END */
 /* označení více jak 1 ks v objednávce */
+
 if (
 	location.href.startsWith(
 		'https://www.canlistore.com/admin/prehled-objednavek/'
@@ -57,11 +61,7 @@ if (
 	}, 500);
 }
 /* END označení více jak 1 ks v objednávce END */
-if (
-	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/')) {
 	/* Kontrola Dobírek a přehození do vyřizuje se */
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[6].classList.contains('active')) {
@@ -84,9 +84,10 @@ if (
 			}
 		}
 	}
+	
 	/* END Kontrola Dobírek a přehození do vyřizuje se END */
-
 	/* Kontrola osobní odběr a přehození do osobní odběr */
+	
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[5].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll(
@@ -132,26 +133,6 @@ if (
 			}
 		}
 	}
-	/* END Kontrola osobní odběr a přehození do osobní odběr END */
-
-	/* Kontrola Převode/Kartou a přehození do vyřízeno
-	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[3].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
-		var tbody = document.querySelector('tbody');
-		var trs = tbody.querySelectorAll('tr');  
-		var trsCount = trs.length;
-		for (var i = 0; i < trsCount; i++) {
-			var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');  
-			var spanElement = v2inlines[1].querySelector('span');  
-			if (spanElement && (spanElement.textContent.trim() === 'Převodem' || spanElement.textContent.trim() === 'Online platba kartou' || spanElement.textContent.trim() === 'Apple Pay' || spanElement.textContent.trim() === 'Google Pay')) {
-				var selectElement = divSelectElement[i].querySelector('select');
-				if(selectElement) selectElement.value = "-3";
-				if(selectElement) selectElement.style.backgroundColor = '#55995555';
-			}
-		}
-	}
-	END Kontrola Převode/Kartou a přehození do vyřízeno END */
 }
 
 /* počet dnů u datumu */
@@ -184,9 +165,10 @@ if (
 		}
 	});
 }
-/* END počet dnů u datumu END */
 
+/* END počet dnů u datumu END */
 /* kontrola stavu zásilek - odeslané*/
+
 if (
 	location.href.startsWith(
 		'https://www.canlistore.com/admin/prehled-objednavek/'
@@ -300,85 +282,72 @@ if (
 /* END kontrola stavu zásilek - odeslané END */
 /* přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" */
 
-if (document.querySelector('.navigation')) {
-	const listItems = document.querySelectorAll('li');
-	listItems.forEach((li) => {
-		const anchor = li.querySelector(
-			':scope > a[href="/admin/zakaznici-nastaveni/"]'
-		);
-		if (anchor) {
-			const newLi = document.createElement('li');
-			newLi.style.width = '100%';
-			li.parentNode.insertBefore(newLi, li.nextSibling);
-
-			const buttonSpan = document.createElement('span');
-			const buttonA = document.createElement('a');
-			buttonA.id = 'toggleTabindex';
-			buttonA.className = 'btn btn-sm btn-primary';
-			buttonA.textContent = 'column tab';
-			buttonA.title = 'tabování po sloupcích';
-			buttonA.style.width = '100%';
-
-			buttonSpan.appendChild(buttonA);
-			newLi.appendChild(buttonSpan);
-		}
-	});
-}
 if (document.querySelector('tbody')) {
 	let tabindexEnabled = localStorage.getItem('tabindexEnabled') === 'true';
-
-	const button = document.getElementById('toggleTabindex');
 
 	if (tabindexEnabled) {
 		applyTabindex();
 	} else {
 		removeTabindex();
 	}
+
 	if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-		button.addEventListener('click', () => {
+		const toggleButtonElement = document.querySelector('.content-buttons');
+
+		const buttonSpan = document.createElement('span');
+		const buttonA = document.createElement('a');
+		buttonA.id = 'toggleTabindex';
+		buttonA.className = 'btn btn-sm btn-primary';
+		buttonA.textContent = 'column tab';
+		buttonA.title = 'tabování po sloupcích';
+
+		if (tabindexEnabled) buttonA.style.backgroundColor = '#00000055';
+		else buttonA.style.backgroundColor = '#0#14b1ef';
+
+		buttonSpan.appendChild(buttonA);
+		toggleButtonElement.insertBefore(
+			buttonSpan,
+			toggleButtonElement.firstChild
+		);
+
+		buttonA.addEventListener('click', () => {
 			if (tabindexEnabled) {
 				removeTabindex();
+				buttonA.style.backgroundColor = '#00000055';
 			} else {
 				applyTabindex();
+				buttonA.style.backgroundColor = '#0#14b1ef';
 			}
 			tabindexEnabled = !tabindexEnabled;
 			localStorage.setItem('tabindexEnabled', tabindexEnabled);
 		});
 	}
-	function applyTabindex() {
-		document.querySelectorAll('tbody').forEach((tbody) => {
-			const rows = Array.from(tbody.querySelectorAll('tr'));
-			const colsCount = rows[0].querySelectorAll('td').length;
-			for (let col = 0; col < colsCount; col++) {
-				for (let row = 0; row < rows.length; row++) {
-					const cell = rows[row].querySelectorAll('td')[col];
-					if (cell) {
-						const inputs = cell.querySelectorAll('input, select, a');
-						inputs.forEach((input) => {
-							input.setAttribute('tabindex', col * rows.length + row + 1);
-						});
-					}
+}
+function applyTabindex() {
+	document.querySelectorAll('tbody').forEach((tbody) => {
+		const rows = Array.from(tbody.querySelectorAll('tr'));
+		const colsCount = rows[0].querySelectorAll('td').length;
+		for (let col = 0; col < colsCount; col++) {
+			for (let row = 0; row < rows.length; row++) {
+				const cell = rows[row].querySelectorAll('td')[col];
+				if (cell) {
+					const inputs = cell.querySelectorAll('input, select, a');
+					inputs.forEach((input) => {
+						input.setAttribute('tabindex', col * rows.length + row + 1);
+					});
 				}
 			}
-		});
-		if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-			button.textContent = 'column tab';
-			button.style.removeProperty('background-color');
 		}
-	}
-	function removeTabindex() {
-		document.querySelectorAll('tbody').forEach((tbody) => {
-			tbody.querySelectorAll('input, select, a').forEach((input) => {
-				input.removeAttribute('tabindex');
-			});
+	});
+}
+function removeTabindex() {
+	document.querySelectorAll('tbody').forEach((tbody) => {
+		tbody.querySelectorAll('input, select, a').forEach((input) => {
+			input.removeAttribute('tabindex');
 		});
-		if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
-			button.textContent = 'column tab';
-			button.style.backgroundColor = '#00000055';
-		}
-	}
+	});
 }
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 
-console.log('verze 6.4');
+console.log('verze 7.2');
