@@ -301,8 +301,8 @@ if (document.querySelector('tbody')) {
 		buttonA.textContent = 'column tab';
 		buttonA.title = 'tabování po sloupcích';
 
-		if (tabindexEnabled) buttonA.style.backgroundColor = '#00000055';
-		else buttonA.style.backgroundColor = '#0#14b1ef';
+		if (tabindexEnabled) buttonA.style.backgroundColor = '#14b1ef';
+		else buttonA.style.backgroundColor = '#00000055';
 
 		buttonSpan.appendChild(buttonA);
 		toggleButtonElement.insertBefore(
@@ -316,7 +316,7 @@ if (document.querySelector('tbody')) {
 				buttonA.style.backgroundColor = '#00000055';
 			} else {
 				applyTabindex();
-				buttonA.style.backgroundColor = '#0#14b1ef';
+				buttonA.style.backgroundColor = '#14b1ef';
 			}
 			tabindexEnabled = !tabindexEnabled;
 			localStorage.setItem('tabindexEnabled', tabindexEnabled);
@@ -350,4 +350,4 @@ function removeTabindex() {
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 
-console.log('verze 7.2');
+console.log('verze 8.0');
