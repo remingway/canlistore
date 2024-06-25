@@ -349,5 +349,30 @@ function removeTabindex() {
 }
 
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
+/* zvýraznění přehazování objednávek do odesláno */
 
-console.log('verze 8.0');
+// Najdi všechny odkazy na stránce
+const links = document.querySelectorAll('a');
+
+// Projdi všechny odkazy
+links.forEach(link => {
+    // Zkontroluj, zda atribut 'rel' obsahuje požadovanou hodnotu
+    if (link.getAttribute('rel') === 'massStatusChange|2') {
+        // Změň pozadí na žlutou barvu
+        link.style.backgroundColor = '#55995555';
+    }
+});
+
+/* END zvýraznění přehazování objednávek do odesláno END */
+
+
+	const orderCode = '2024718241';
+        const elements = document.querySelectorAll('[data-testid="orderCode"]');
+        
+        elements.forEach(element => {
+            if (element.textContent === orderCode) {
+                element.style.backgroundColor = '#55995555';
+            }
+        });
+
+console.log('verze 8.1');
