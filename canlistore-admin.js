@@ -160,8 +160,18 @@ if (
 		const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
 		if (selectField1.nextSibling) {
 			let newSpan = document.createElement('span');
-			newSpan.textContent += '\u00A0(' + daysDiff + ')';
+			newSpan.textContent += '\u00A0(' + daysDiff + ')\u00A0';
 			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
+
+			var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
+			if (dropdownList[6].classList.contains('active'))
+			{
+				if(daysDiff >= 5)
+				{
+					newSpan.style.backgroundColor = '#cf000363';
+					newSpan.style.borderRadius = '10px';
+				}
+			}
 		}
 	});
 }
@@ -291,7 +301,7 @@ if (document.querySelector('tbody')) {
 		removeTabindex();
 	}
 
-	if (location.href.startsWith('https://www.canlistore.com/admin/produkty')) {
+	if (location.href.startsWith('https://www.canlistore.com/admin/produkty/')) {
 		const toggleButtonElement = document.querySelector('.content-buttons');
 
 		const buttonSpan = document.createElement('span');
@@ -326,18 +336,22 @@ if (document.querySelector('tbody')) {
 function applyTabindex() {
 	document.querySelectorAll('tbody').forEach((tbody) => {
 		const rows = Array.from(tbody.querySelectorAll('tr'));
-		const colsCount = rows[0].querySelectorAll('td').length;
-		for (let col = 0; col < colsCount; col++) {
-			for (let row = 0; row < rows.length; row++) {
-				const cell = rows[row].querySelectorAll('td')[col];
-				if (cell) {
-					const inputs = cell.querySelectorAll('input, select, a');
-					inputs.forEach((input) => {
-						input.setAttribute('tabindex', col * rows.length + row + 1);
-					});
+		if (rows.length > 0)
+		{
+			const colsCount = rows[0].querySelectorAll('td').length;
+			for (let col = 0; col < colsCount; col++) {
+				for (let row = 0; row < rows.length; row++) {
+					const cell = rows[row].querySelectorAll('td')[col];
+					if (cell) {
+						const inputs = cell.querySelectorAll('input, select, a');
+						inputs.forEach((input) => {
+							input.setAttribute('tabindex', col * rows.length + row + 1);
+						});
+					}
 				}
 			}
 		}
+		
 	});
 }
 function removeTabindex() {
@@ -351,28 +365,16 @@ function removeTabindex() {
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 /* zvýraznění přehazování objednávek do odesláno */
 
-// Najdi všechny odkazy na stránce
-const links = document.querySelectorAll('a');
-
-// Projdi všechny odkazy
-links.forEach(link => {
-    // Zkontroluj, zda atribut 'rel' obsahuje požadovanou hodnotu
-    if (link.getAttribute('rel') === 'massStatusChange|2') {
-        // Změň pozadí na žlutou barvu
-        link.style.backgroundColor = '#55995555';
-    }
-});
+if (location.href.startsWith('https://www.canlistore.com/admin/prehled-objednavek/'))
+{
+	const links = document.querySelectorAll('a');
+	links.forEach(link => {
+		if (link.getAttribute('rel') === 'massStatusChange|2') {
+        		link.style.backgroundColor = '#55995555';
+    		}
+	});
+}
 
 /* END zvýraznění přehazování objednávek do odesláno END */
 
-
-	const orderCode = '2024718241';
-        const elements = document.querySelectorAll('[data-testid="orderCode"]');
-        
-        elements.forEach(element => {
-            if (element.textContent === orderCode) {
-                element.style.backgroundColor = '#55995555';
-            }
-        });
-
-console.log('verze 8.1');
+console.log('verze 8.2');
