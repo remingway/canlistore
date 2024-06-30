@@ -1,12 +1,17 @@
 /* přesunout zasilkovna + do objednávek */
-var elementToMove = document.querySelector(
-	'a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277'
-);
-var referenceElement = document.querySelector(
-	'a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509'
-);
-var parentElement = referenceElement.parentNode;
-parentElement.insertBefore(elementToMove, referenceElement);
+
+var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
+var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
+if(elementToMove && referenceElement){
+	var parentElement = referenceElement.parentNode;
+	parentElement.insertBefore(elementToMove, referenceElement);
+	if (location.href.startsWith('https://www.canlistore.com/admin/zasilkovna-plugin/')) {
+		var elementLink122 = document.querySelector('.navigation__link--122');
+		var elementLink606 = document.querySelector('.navigation__link--606');
+		if (elementLink122) {elementLink122.classList.add('navigation__link--active');}
+		if (elementLink606) {elementLink606.classList.remove('navigation__link--active');}
+	}
+}
 
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
@@ -377,4 +382,4 @@ if (location.href.startsWith('https://www.canlistore.com/admin/prehled-objednave
 
 /* END zvýraznění přehazování objednávek do odesláno END */
 
-console.log('verze 8.2');
+console.log('verze 8.3');
