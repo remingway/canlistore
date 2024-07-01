@@ -191,7 +191,7 @@ if (
 ) {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[3].classList.contains('active')) {
-		const contentDiv = document.getElementById('bank-connection-fail-message');
+		const contentDiv = document.getElementById('bank-connection-notifications');
 		var button = document.createElement('button');
 		button.innerHTML = 'download zasilkovna-file';
 		button.style.margin = '10px 20px';
@@ -382,4 +382,4 @@ if (location.href.startsWith('https://www.canlistore.com/admin/prehled-objednave
 
 /* END zvýraznění přehazování objednávek do odesláno END */
 
-console.log('verze 8.3');
+console.log('verze 8.4');
