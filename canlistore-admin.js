@@ -448,5 +448,89 @@ if (
 }
 
 /* END zvýraznění přehazování objednávek do odesláno END */
+/* odesílání digitálních proiduktů */
 
-console.log('verze 8.6');
+const linksMap = {
+	'Digitální diář Minimalistický':'https://drive.google.com/drive/folders/18elDfL7V4Hgvt5HTH-G_BGOFT4TuiT1u?usp=drive_link',
+	'Digitální receptář':'https://drive.google.com/drive/folders/1MUMi6lWqA01v33kyQEoPoocUqrNr1lTV?usp=drive_link',
+	'Digitální rozvrh hodin Duha':'https://drive.google.com/drive/folders/1IlaJqqWpBZN13t2q7b5gY7AHZIx8txcE?usp=drive_link',
+	'Digitální rozvrh hodin Kaktus':'https://drive.google.com/drive/folders/1qcgNHYLtZvhsPBGtb1Sne-xZu32DIUnJ?usp=drive_link',
+	'Digitální rozvrh hodin Květiny':'https://drive.google.com/drive/folders/1v5o6wxjQJ9RZyFEFEgWjKt6uptyz8Dru?usp=drive_link',
+	'Digitální rozvrh hodin Monstera':'https://drive.google.com/drive/folders/1ZqwU1kP0G-OO0gha5pvgVYlWUTlXD2ll?usp=drive_link',
+	'Digitální rozvrh hodin Slunečnice':'https://drive.google.com/drive/folders/11XtYeJwgHMdopmXMsiD06VRjjWm1zXoY?usp=drive_link',
+	'Digitální rozvrh hodin Škola':'https://drive.google.com/drive/folders/1aElcvdPNkDD_-H2inaGFe1b5U7yhfoTx?usp=drive_link',
+	'Digitální rozvrh hodin Tele':'https://drive.google.com/drive/folders/1MNh2NykVGizi3f-xjZiyn1TDnVPBQ9n_?usp=drive_link',
+	'Horizontální rozložení k tisku':'https://drive.google.com/drive/folders/1wYMtesWBmodS15E2CQEhGSb6BoXo2GVA?usp=drive_link',
+	'Kalendářní rozložení k tisku':'https://drive.google.com/drive/folders/12_zaD2pDV7YQ_0KseiZQ9OI5ko9SXEg_?usp=drive_link',
+	'Knihy k tisku':'https://drive.google.com/drive/folders/1os7eRw-7W6DiLt8kiXl_SM7Mi1OQoc-P?usp=drive_link',
+	'Mapa k tisku':'https://drive.google.com/drive/folders/1_5QYGX-rpPBGntEYvzZt_aRFUYS_1rzV?usp=drive_link',
+	'Narozeniny k tisku':'https://drive.google.com/drive/folders/1dvdWbprTO-Xf0XNVY-XdQmmazqzirjcW?usp=drive_link',
+	'Organizace + sloupce k tisku':'https://drive.google.com/drive/folders/1QgOwkj54CV6Ty4-pDVUCqgf4xKnKUvxw?usp=drive_link',
+	'Random rozložení k tisku':'https://drive.google.com/drive/folders/1XM1-7FhrlrFl3eMfUmVsJyS1Krzu1kc_?usp=drive_link',
+	'Rozdělovač hory k tisku':'https://drive.google.com/drive/folders/1BzQzRaTqZTLrF5euoh2x3NU3HZFupQtK?usp=drive_link',
+	'Řádky + poznámky k tisku':'https://drive.google.com/drive/folders/14qRfY6Tpl1qbkVK_K6M3299xTVqqsizi?usp=drive_link',
+	'Řádky + prázdná strana k tisku':'https://drive.google.com/drive/folders/1QUVv0DvgmSNMy8Lq82EFq_K4I76lmrZg?usp=drive_link',
+	'Řádky k tisku':'https://drive.google.com/drive/folders/1PhWzIH-7NBVM3W4ZMzYAqze90CEGp1jl?usp=drive_link',
+	'Sloupce + hodiny k tisku':'https://drive.google.com/drive/folders/1_zVqtnUH2TN4U111km-CPJLCwSxFZlUK?usp=drive_link',
+	'Spoření k tisku':'https://drive.google.com/drive/folders/1W2LwjgsSqy88jDmHq6CI4pX3EZhxFS2O?usp=drive_link',
+	'Učitelský zápisník - PDF k tisku':'https://drive.google.com/drive/folders/1nM7_M6WufM9EzWHLBS8NHRFwbzbqQVwG?usp=drive_link',
+	'Zápisník asistenta pedagoga - PDF k tisku':'https://drive.google.com/drive/folders/1BkOOukxKUVjmZQeaxk-NXTi35bXfiObl?usp=drive_link',
+	'Zápisník pro Mateřské školy - PDF k tisku':'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link'
+};
+function checkIframeLoaded() {
+	let inputElement = document.querySelector(
+		'input[value="Canli Store 📚 PDF soubory"]'
+	);
+	if (inputElement) {
+		var iframe = document.getElementById('description_ifr');
+
+		if (iframe && iframe.contentDocument) {
+			var iframeDocument =
+				iframe.contentDocument || iframe.contentWindow.document;
+
+			if (iframeDocument.readyState === 'complete') {
+				clearInterval(interval);
+
+				var links = iframeDocument.body.getElementsByTagName('a');
+				var replacementHTML = '';
+				for (var i = 0; i < links.length; i++) {
+					for (const [text, url] of Object.entries(linksMap)) {
+						if (links[i].textContent.includes(text)) {
+							replacementHTML += `<a href="${url}">${text}</a><br>`;
+						}
+					}
+				}
+				var paragraphsForZde = iframeDocument.body.getElementsByTagName('p');
+				for (var j = 0; j < paragraphsForZde.length; j++) {
+					var p = paragraphsForZde[j];
+					if (p.textContent.includes('ZDE')) {
+						if (replacementHTML != '') {
+							p.innerHTML = replacementHTML;
+						}
+						if (replacementHTML == '') {
+							replacementHTML =
+								"<p style='color: red'>V objednávce není žádný digitální produkt!</p>";
+							p.innerHTML = replacementHTML;
+						}
+					}
+					if (p.textContent.includes('SMAZAT')) {
+						while (p.nextSibling) {
+							p.parentNode.removeChild(p.nextSibling);
+						}
+						p.parentNode.removeChild(p);
+						break;
+					}
+				}
+			}
+		}
+	}
+}
+if (
+	location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')
+) {
+	var interval = setInterval(checkIframeLoaded, 100);
+}
+
+/* END odesílání digitálních proiduktů END */
+
+console.log('verze 8.7');
