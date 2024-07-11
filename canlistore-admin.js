@@ -477,60 +477,60 @@ const linksMap = {
 	'Zápisník asistenta pedagoga - PDF k tisku':'https://drive.google.com/drive/folders/1BkOOukxKUVjmZQeaxk-NXTi35bXfiObl?usp=drive_link',
 	'Zápisník pro Mateřské školy - PDF k tisku':'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link'
 };
-function checkIframeLoaded() {
-	let inputElement = document.querySelector(
-		'input[value="Canli Store 📚 PDF soubory"]'
-	);
-	if (inputElement) {
-		var iframe = document.getElementById('description_ifr');
+if(location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')) {
+document.addEventListener('click', function (event) {
+	// Zkontrolujeme, zda kliknutí bylo na odkaz uvnitř elementu s třídou 'open-modal'
+	if (event.target.closest('.open-modal a')) {
+		setTimeout(function () {
+			let inputElement = document.querySelector(
+				'input[value="Canli Store 📚 PDF soubory"]'
+			);
+			if (inputElement) {
+				var iframe = document.getElementById('description_ifr');
 
-		if (iframe && iframe.contentDocument) {
-			var iframeDocument =
-				iframe.contentDocument || iframe.contentWindow.document;
+				if (iframe && iframe.contentDocument) {
+					var iframeDocument =
+						iframe.contentDocument || iframe.contentWindow.document;
 
-			if (iframeDocument.readyState === 'complete') {
-				clearInterval(interval);
-
-				var links = iframeDocument.body.getElementsByTagName('a');
-				var replacementHTML = '';
-				for (var i = 0; i < links.length; i++) {
-					for (const [text, url] of Object.entries(linksMap)) {
-						if (links[i].textContent.includes(text)) {
-							replacementHTML += `<a href="${url}">${text}</a><br>`;
+					if (iframeDocument.readyState === 'complete') {
+						var links = iframeDocument.body.getElementsByTagName('a');
+						var replacementHTML = '';
+						for (var i = 0; i < links.length; i++) {
+							for (const [text, url] of Object.entries(linksMap)) {
+								if (links[i].textContent.includes(text)) {
+									replacementHTML += `<a href="${url}">${text}</a><br>`;
+								}
+							}
 						}
-					}
-				}
-				var paragraphsForZde = iframeDocument.body.getElementsByTagName('p');
-				for (var j = 0; j < paragraphsForZde.length; j++) {
-					var p = paragraphsForZde[j];
-					if (p.textContent.includes('ZDE')) {
-						if (replacementHTML != '') {
-							p.innerHTML = replacementHTML;
+						var paragraphsForZde =
+							iframeDocument.body.getElementsByTagName('p');
+						for (var j = 0; j < paragraphsForZde.length; j++) {
+							var p = paragraphsForZde[j];
+							if (p.textContent.includes('CHYBA')) {
+								if (replacementHTML != '') {
+									p.innerHTML = replacementHTML;
+								}
+								if (replacementHTML == '') {
+									replacementHTML =
+										"<p style='color: red'>V objednávce není žádný digitální produkt!</p>";
+									p.innerHTML = replacementHTML;
+								}
+							}
+							if (p.textContent.includes('SMAZAT')) {
+								while (p.nextSibling) {
+									p.parentNode.removeChild(p.nextSibling);
+								}
+								p.parentNode.removeChild(p);
+								break;
+							}
 						}
-						if (replacementHTML == '') {
-							replacementHTML =
-								"<p style='color: red'>V objednávce není žádný digitální produkt!</p>";
-							p.innerHTML = replacementHTML;
-						}
-					}
-					if (p.textContent.includes('SMAZAT')) {
-						while (p.nextSibling) {
-							p.parentNode.removeChild(p.nextSibling);
-						}
-						p.parentNode.removeChild(p);
-						break;
 					}
 				}
 			}
-		}
+		}, 1000);
 	}
+});
 }
-if (
-	location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')
-) {
-	var interval = setInterval(checkIframeLoaded, 100);
-}
-
 /* END odesílání digitálních proiduktů END */
 
-console.log('verze 8.7');
+console.log('verze 8.8');
