@@ -1,3 +1,5 @@
+console.log('verze 8.8');
+
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector(
@@ -532,5 +534,3 @@ document.addEventListener('click', function (event) {
 });
 }
 /* END odesílání digitálních proiduktů END */
-
-console.log('verze 8.8');
