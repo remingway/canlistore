@@ -212,7 +212,7 @@ if (
 			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
 
 			var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-			if (dropdownList[6].classList.contains('active')) {
+			if (dropdownList[7].classList.contains('active')) {
 				if (daysDiff >= 5) {
 					newSpan.style.backgroundColor = '#cf000363';
 					newSpan.style.borderRadius = '10px';
