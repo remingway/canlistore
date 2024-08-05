@@ -1,4 +1,4 @@
-console.log('verze 8.8');
+console.log('verze 8.9');
 
 /* přesunout zasilkovna + do objednávek */
 
@@ -51,8 +51,7 @@ if (
 				'orders_overview_form_massAction_type'
 			);
 			if (SelectOrdersElement) {
-				SelectOrdersElement.value =
-					'createPacketsAndCreatePrintLabelsLinks'; // Vybere "Tisknout štítek"
+				SelectOrdersElement.value = 'createPacketsAndCreatePrintLabelsLinks'; // Vybere "Tisknout štítek"
 				SelectOrdersElement.style.backgroundColor = '#55995555'; // Změna barvy pozadí pro vizuální potvrzení
 			}
 		});
@@ -90,7 +89,7 @@ if (
 	)
 ) {
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[6].classList.contains('active')) {
+	if (dropdownList[7].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll(
 			'td div.v2FormField__select'
 		);
@@ -106,14 +105,34 @@ if (
 			if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
 				var selectElement = divSelectElement[i].querySelector('select');
 				if (selectElement) selectElement.value = '-2';
-				if (selectElement)
-					selectElement.style.backgroundColor = '#55995555';
+				if (selectElement) selectElement.style.backgroundColor = '#55995555';
 			}
 		}
 	}
 
-/* END Kontrola Dobírek a přehození do vyřizuje se END */
-/* Kontrola osobní odběr a přehození do osobní odběr */
+	/* END Kontrola Dobírek a přehození do vyřizuje se END */
+	/* Zaplaceno přehodit do Vyřizuje se */
+
+	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
+	if (dropdownList[6].classList.contains('active')) {
+		var divSelectElement = document.querySelectorAll(
+			'td div.v2FormField__select'
+		);
+		var tbody = document.querySelector('tbody');
+		var trs = tbody.querySelectorAll('tr');
+		var trsCount = trs.length;
+		for (var i = 0; i < trsCount; i++) {
+			var v2inlines = trs[i].querySelectorAll(
+				'div.v2inline.v2inline--justifyBetween'
+			);
+			var selectElement = divSelectElement[i].querySelector('select');
+			if (selectElement) selectElement.value = '-2';
+			if (selectElement) selectElement.style.backgroundColor = '#55995555';
+		}
+	}
+
+	/* END Zaplaceno přehodit do Vyřizuje se END */
+	/* Kontrola osobní odběr a přehození do osobní odběr */
 
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[5].classList.contains('active')) {
@@ -128,18 +147,14 @@ if (
 				'div.v2inline.v2inline--justifyBetween'
 			);
 			var spanElement = v2inlines[0].querySelector('span');
-			if (
-				spanElement &&
-				spanElement.textContent.trim() === 'Osobní odběr'
-			) {
+			if (spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
 				var selectElement = divSelectElement[i].querySelector('select');
 				if (selectElement) selectElement.value = '30';
-				if (selectElement)
-					selectElement.style.backgroundColor = '#55995555';
+				if (selectElement) selectElement.style.backgroundColor = '#55995555';
 			}
 		}
 	}
-	if (dropdownList[6].classList.contains('active')) {
+	if (dropdownList[7].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll(
 			'td div.v2FormField__select'
 		);
@@ -160,8 +175,7 @@ if (
 			) {
 				var selectElement = divSelectElement[i].querySelector('select');
 				if (selectElement) selectElement.value = '30';
-				if (selectElement)
-					selectElement.style.backgroundColor = '#55995555';
+				if (selectElement) selectElement.style.backgroundColor = '#55995555';
 			}
 		}
 	}
@@ -191,20 +205,13 @@ if (
 		var timeDiff = currentDate - dateObject;
 		var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
 		const parentTr = span.closest('tr');
-		const selectField1 = parentTr.querySelector(
-			'[data-testid="orderCode"]'
-		);
+		const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
 		if (selectField1.nextSibling) {
 			let newSpan = document.createElement('span');
 			newSpan.textContent += '\u00A0(' + daysDiff + ')\u00A0';
-			selectField1.parentNode.insertBefore(
-				newSpan,
-				selectField1.nextSibling
-			);
+			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
 
-			var dropdownList = document.querySelectorAll(
-				'ul.dropdown-ready li'
-			);
+			var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 			if (dropdownList[6].classList.contains('active')) {
 				if (daysDiff >= 5) {
 					newSpan.style.backgroundColor = '#cf000363';
@@ -225,9 +232,7 @@ if (
 ) {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[3].classList.contains('active')) {
-		const contentDiv = document.getElementById(
-			'bank-connection-notifications'
-		);
+		const contentDiv = document.getElementById('bank-connection-notifications');
 		var button = document.createElement('button');
 		button.innerHTML = 'download zasilkovna-file';
 		button.style.margin = '10px 20px';
@@ -260,9 +265,7 @@ if (
 			const lines = csv.split('\n');
 			data = [];
 			lines.forEach(function (line) {
-				const columns = line
-					.split(';')
-					.map((cell) => cell.replace(/"/g, ''));
+				const columns = line.split(';').map((cell) => cell.replace(/"/g, ''));
 				const objednavka = columns[3];
 				const stav = columns[11];
 				const datum = columns[12];
@@ -297,14 +300,9 @@ if (
 					const today = new Date();
 					today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for accurate comparison
 					const timeDiff = targetDate - today;
-					const daysDiff =
-						Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
+					const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
 					selectField1.textContent =
-						'Ready to: ' +
-						hledanaObjednavka.datum +
-						' (' +
-						daysDiff +
-						')';
+						'Ready to: ' + hledanaObjednavka.datum + ' (' + daysDiff + ')';
 					if (daysDiff == 0) {
 						selectField1.style.backgroundColor = '#99555555';
 					} else if (daysDiff == 1) {
@@ -317,8 +315,7 @@ if (
 				}
 				if (hledanaObjednavka.stav === 'Doručena') {
 					const parentTr = objednavkaElement.closest('tr');
-					const selectField2 =
-						parentTr.querySelector('.selectField.sm');
+					const selectField2 = parentTr.querySelector('.selectField.sm');
 					if (selectField2) {
 						selectField2.value = '-3';
 						selectField2.style.backgroundColor = '#55995555';
@@ -350,9 +347,7 @@ if (document.querySelector('tbody')) {
 		removeTabindex();
 	}
 
-	if (
-		location.href.startsWith('https://www.canlistore.com/admin/produkty/')
-	) {
+	if (location.href.startsWith('https://www.canlistore.com/admin/produkty/')) {
 		const toggleButtonElement = document.querySelector('.content-buttons');
 
 		const buttonSpan = document.createElement('span');
@@ -393,13 +388,9 @@ function applyTabindex() {
 				for (let row = 0; row < rows.length; row++) {
 					const cell = rows[row].querySelectorAll('td')[col];
 					if (cell) {
-						const inputs =
-							cell.querySelectorAll('input, select, a');
+						const inputs = cell.querySelectorAll('input, select, a');
 						inputs.forEach((input) => {
-							input.setAttribute(
-								'tabindex',
-								col * rows.length + row + 1
-							);
+							input.setAttribute('tabindex', col * rows.length + row + 1);
 						});
 					}
 				}
@@ -453,84 +444,111 @@ if (
 /* odesílání digitálních proiduktů */
 
 const linksMap = {
-	'Digitální diář Minimalistický':'https://drive.google.com/drive/folders/18elDfL7V4Hgvt5HTH-G_BGOFT4TuiT1u?usp=drive_link',
-	'Digitální receptář':'https://drive.google.com/drive/folders/1MUMi6lWqA01v33kyQEoPoocUqrNr1lTV?usp=drive_link',
-	'Digitální rozvrh hodin Duha':'https://drive.google.com/drive/folders/1IlaJqqWpBZN13t2q7b5gY7AHZIx8txcE?usp=drive_link',
-	'Digitální rozvrh hodin Kaktus':'https://drive.google.com/drive/folders/1qcgNHYLtZvhsPBGtb1Sne-xZu32DIUnJ?usp=drive_link',
-	'Digitální rozvrh hodin Květiny':'https://drive.google.com/drive/folders/1v5o6wxjQJ9RZyFEFEgWjKt6uptyz8Dru?usp=drive_link',
-	'Digitální rozvrh hodin Monstera':'https://drive.google.com/drive/folders/1ZqwU1kP0G-OO0gha5pvgVYlWUTlXD2ll?usp=drive_link',
-	'Digitální rozvrh hodin Slunečnice':'https://drive.google.com/drive/folders/11XtYeJwgHMdopmXMsiD06VRjjWm1zXoY?usp=drive_link',
-	'Digitální rozvrh hodin Škola':'https://drive.google.com/drive/folders/1aElcvdPNkDD_-H2inaGFe1b5U7yhfoTx?usp=drive_link',
-	'Digitální rozvrh hodin Tele':'https://drive.google.com/drive/folders/1MNh2NykVGizi3f-xjZiyn1TDnVPBQ9n_?usp=drive_link',
-	'Horizontální rozložení k tisku':'https://drive.google.com/drive/folders/1wYMtesWBmodS15E2CQEhGSb6BoXo2GVA?usp=drive_link',
-	'Kalendářní rozložení k tisku':'https://drive.google.com/drive/folders/12_zaD2pDV7YQ_0KseiZQ9OI5ko9SXEg_?usp=drive_link',
-	'Knihy k tisku':'https://drive.google.com/drive/folders/1os7eRw-7W6DiLt8kiXl_SM7Mi1OQoc-P?usp=drive_link',
-	'Mapa k tisku':'https://drive.google.com/drive/folders/1_5QYGX-rpPBGntEYvzZt_aRFUYS_1rzV?usp=drive_link',
-	'Narozeniny k tisku':'https://drive.google.com/drive/folders/1dvdWbprTO-Xf0XNVY-XdQmmazqzirjcW?usp=drive_link',
-	'Organizace + sloupce k tisku':'https://drive.google.com/drive/folders/1QgOwkj54CV6Ty4-pDVUCqgf4xKnKUvxw?usp=drive_link',
-	'Random rozložení k tisku':'https://drive.google.com/drive/folders/1XM1-7FhrlrFl3eMfUmVsJyS1Krzu1kc_?usp=drive_link',
-	'Rozdělovač hory k tisku':'https://drive.google.com/drive/folders/1BzQzRaTqZTLrF5euoh2x3NU3HZFupQtK?usp=drive_link',
-	'Řádky + poznámky k tisku':'https://drive.google.com/drive/folders/14qRfY6Tpl1qbkVK_K6M3299xTVqqsizi?usp=drive_link',
-	'Řádky + prázdná strana k tisku':'https://drive.google.com/drive/folders/1QUVv0DvgmSNMy8Lq82EFq_K4I76lmrZg?usp=drive_link',
-	'Řádky k tisku':'https://drive.google.com/drive/folders/1PhWzIH-7NBVM3W4ZMzYAqze90CEGp1jl?usp=drive_link',
-	'Sloupce + hodiny k tisku':'https://drive.google.com/drive/folders/1_zVqtnUH2TN4U111km-CPJLCwSxFZlUK?usp=drive_link',
-	'Spoření k tisku':'https://drive.google.com/drive/folders/1W2LwjgsSqy88jDmHq6CI4pX3EZhxFS2O?usp=drive_link',
-	'Učitelský zápisník - PDF k tisku':'https://drive.google.com/drive/folders/1nM7_M6WufM9EzWHLBS8NHRFwbzbqQVwG?usp=drive_link',
-	'Zápisník asistenta pedagoga - PDF k tisku':'https://drive.google.com/drive/folders/1BkOOukxKUVjmZQeaxk-NXTi35bXfiObl?usp=drive_link',
-	'Zápisník pro Mateřské školy - PDF k tisku':'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link'
+	'Digitální diář Minimalistický':
+		'https://drive.google.com/drive/folders/18elDfL7V4Hgvt5HTH-G_BGOFT4TuiT1u?usp=drive_link',
+	'Digitální receptář':
+		'https://drive.google.com/drive/folders/1MUMi6lWqA01v33kyQEoPoocUqrNr1lTV?usp=drive_link',
+	'Digitální rozvrh hodin Duha':
+		'https://drive.google.com/drive/folders/1IlaJqqWpBZN13t2q7b5gY7AHZIx8txcE?usp=drive_link',
+	'Digitální rozvrh hodin Kaktus':
+		'https://drive.google.com/drive/folders/1qcgNHYLtZvhsPBGtb1Sne-xZu32DIUnJ?usp=drive_link',
+	'Digitální rozvrh hodin Květiny':
+		'https://drive.google.com/drive/folders/1v5o6wxjQJ9RZyFEFEgWjKt6uptyz8Dru?usp=drive_link',
+	'Digitální rozvrh hodin Monstera':
+		'https://drive.google.com/drive/folders/1ZqwU1kP0G-OO0gha5pvgVYlWUTlXD2ll?usp=drive_link',
+	'Digitální rozvrh hodin Slunečnice':
+		'https://drive.google.com/drive/folders/11XtYeJwgHMdopmXMsiD06VRjjWm1zXoY?usp=drive_link',
+	'Digitální rozvrh hodin Škola':
+		'https://drive.google.com/drive/folders/1aElcvdPNkDD_-H2inaGFe1b5U7yhfoTx?usp=drive_link',
+	'Digitální rozvrh hodin Tele':
+		'https://drive.google.com/drive/folders/1MNh2NykVGizi3f-xjZiyn1TDnVPBQ9n_?usp=drive_link',
+	'Horizontální rozložení k tisku':
+		'https://drive.google.com/drive/folders/1wYMtesWBmodS15E2CQEhGSb6BoXo2GVA?usp=drive_link',
+	'Kalendářní rozložení k tisku':
+		'https://drive.google.com/drive/folders/12_zaD2pDV7YQ_0KseiZQ9OI5ko9SXEg_?usp=drive_link',
+	'Knihy k tisku':
+		'https://drive.google.com/drive/folders/1os7eRw-7W6DiLt8kiXl_SM7Mi1OQoc-P?usp=drive_link',
+	'Mapa k tisku':
+		'https://drive.google.com/drive/folders/1_5QYGX-rpPBGntEYvzZt_aRFUYS_1rzV?usp=drive_link',
+	'Narozeniny k tisku':
+		'https://drive.google.com/drive/folders/1dvdWbprTO-Xf0XNVY-XdQmmazqzirjcW?usp=drive_link',
+	'Organizace + sloupce k tisku':
+		'https://drive.google.com/drive/folders/1QgOwkj54CV6Ty4-pDVUCqgf4xKnKUvxw?usp=drive_link',
+	'Random rozložení k tisku':
+		'https://drive.google.com/drive/folders/1XM1-7FhrlrFl3eMfUmVsJyS1Krzu1kc_?usp=drive_link',
+	'Rozdělovač hory k tisku':
+		'https://drive.google.com/drive/folders/1BzQzRaTqZTLrF5euoh2x3NU3HZFupQtK?usp=drive_link',
+	'Řádky + poznámky k tisku':
+		'https://drive.google.com/drive/folders/14qRfY6Tpl1qbkVK_K6M3299xTVqqsizi?usp=drive_link',
+	'Řádky + prázdná strana k tisku':
+		'https://drive.google.com/drive/folders/1QUVv0DvgmSNMy8Lq82EFq_K4I76lmrZg?usp=drive_link',
+	'Řádky k tisku':
+		'https://drive.google.com/drive/folders/1PhWzIH-7NBVM3W4ZMzYAqze90CEGp1jl?usp=drive_link',
+	'Sloupce + hodiny k tisku':
+		'https://drive.google.com/drive/folders/1_zVqtnUH2TN4U111km-CPJLCwSxFZlUK?usp=drive_link',
+	'Spoření k tisku':
+		'https://drive.google.com/drive/folders/1W2LwjgsSqy88jDmHq6CI4pX3EZhxFS2O?usp=drive_link',
+	'Učitelský zápisník - PDF k tisku':
+		'https://drive.google.com/drive/folders/1nM7_M6WufM9EzWHLBS8NHRFwbzbqQVwG?usp=drive_link',
+	'Zápisník asistenta pedagoga - PDF k tisku':
+		'https://drive.google.com/drive/folders/1BkOOukxKUVjmZQeaxk-NXTi35bXfiObl?usp=drive_link',
+	'Zápisník pro Mateřské školy - PDF k tisku':
+		'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link',
 };
-if(location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')) {
-document.addEventListener('click', function (event) {
-	// Zkontrolujeme, zda kliknutí bylo na odkaz uvnitř elementu s třídou 'open-modal'
-	if (event.target.closest('.open-modal a')) {
-		setTimeout(function () {
-			let inputElement = document.querySelector(
-				'input[value="Canli Store 📚 PDF soubory"]'
-			);
-			if (inputElement) {
-				var iframe = document.getElementById('description_ifr');
+if (
+	location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')
+) {
+	document.addEventListener('click', function (event) {
+		// Zkontrolujeme, zda kliknutí bylo na odkaz uvnitř elementu s třídou 'open-modal'
+		if (event.target.closest('.open-modal a')) {
+			setTimeout(function () {
+				let inputElement = document.querySelector(
+					'input[value="Canli Store 📚 PDF soubory"]'
+				);
+				if (inputElement) {
+					var iframe = document.getElementById('description_ifr');
 
-				if (iframe && iframe.contentDocument) {
-					var iframeDocument =
-						iframe.contentDocument || iframe.contentWindow.document;
+					if (iframe && iframe.contentDocument) {
+						var iframeDocument =
+							iframe.contentDocument || iframe.contentWindow.document;
 
-					if (iframeDocument.readyState === 'complete') {
-						var links = iframeDocument.body.getElementsByTagName('a');
-						var replacementHTML = '';
-						for (var i = 0; i < links.length; i++) {
-							for (const [text, url] of Object.entries(linksMap)) {
-								if (links[i].textContent.includes(text)) {
-									replacementHTML += `<a href="${url}">${text}</a><br>`;
+						if (iframeDocument.readyState === 'complete') {
+							var links = iframeDocument.body.getElementsByTagName('a');
+							var replacementHTML = '';
+							for (var i = 0; i < links.length; i++) {
+								for (const [text, url] of Object.entries(linksMap)) {
+									if (links[i].textContent.includes(text)) {
+										replacementHTML += `<a href="${url}">${text}</a><br>`;
+									}
 								}
 							}
-						}
-						var paragraphsForZde =
-							iframeDocument.body.getElementsByTagName('p');
-						for (var j = 0; j < paragraphsForZde.length; j++) {
-							var p = paragraphsForZde[j];
-							if (p.textContent.includes('CHYBA')) {
-								if (replacementHTML != '') {
-									p.innerHTML = replacementHTML;
+							var paragraphsForZde =
+								iframeDocument.body.getElementsByTagName('p');
+							for (var j = 0; j < paragraphsForZde.length; j++) {
+								var p = paragraphsForZde[j];
+								if (p.textContent.includes('ZDE')) {
+									if (replacementHTML != '') {
+										p.innerHTML = replacementHTML;
+									}
+									if (replacementHTML == '') {
+										replacementHTML =
+											"<p style='color: red'>V objednávce není žádný digitální produkt!</p>";
+										p.innerHTML = replacementHTML;
+									}
 								}
-								if (replacementHTML == '') {
-									replacementHTML =
-										"<p style='color: red'>V objednávce není žádný digitální produkt!</p>";
-									p.innerHTML = replacementHTML;
+								if (p.textContent.includes('SMAZAT')) {
+									while (p.nextSibling) {
+										p.parentNode.removeChild(p.nextSibling);
+									}
+									p.parentNode.removeChild(p);
+									break;
 								}
-							}
-							if (p.textContent.includes('SMAZAT')) {
-								while (p.nextSibling) {
-									p.parentNode.removeChild(p.nextSibling);
-								}
-								p.parentNode.removeChild(p);
-								break;
 							}
 						}
 					}
 				}
-			}
-		}, 1000);
-	}
-});
+			}, 1000);
+		}
+	});
 }
 /* END odesílání digitálních proiduktů END */
