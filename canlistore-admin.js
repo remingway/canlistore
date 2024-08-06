@@ -1,4 +1,4 @@
-console.log('verze 8.9');
+console.log('verze 9.0');
 
 /* přesunout zasilkovna + do objednávek */
 
@@ -501,7 +501,7 @@ if (
 								iframeDocument.body.getElementsByTagName('p');
 							for (var j = 0; j < paragraphsForZde.length; j++) {
 								var p = paragraphsForZde[j];
-								if (p.textContent.includes('ZDE')) {
+								if (p.textContent.includes('CHYBA')) {
 									if (replacementHTML != '') {
 										p.innerHTML = replacementHTML;
 									}
