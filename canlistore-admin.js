@@ -13,7 +13,7 @@ if (elementToMove && referenceElement) {
 	parentElement.insertBefore(elementToMove, referenceElement);
 	if (
 		location.href.startsWith(
-			'https://www.canlistore.com/admin/zasilkovna-plugin/'
+			'https://www.canlistore.cz/admin/zasilkovna-plugin/'
 		)
 	) {
 		var elementLink122 = document.querySelector('.navigation__link--122');
@@ -32,7 +32,7 @@ if (elementToMove && referenceElement) {
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/zasilkovna-plugin/'
+		'https://www.canlistore.cz/admin/zasilkovna-plugin/'
 	)
 ) {
 	var iframe = document.getElementById('partner-iframe');
@@ -63,7 +63,7 @@ if (
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	setInterval(function () {
@@ -85,7 +85,7 @@ if (
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
@@ -186,7 +186,7 @@ if (
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	var spans = document.querySelectorAll('span.grey.nowrap');
@@ -227,7 +227,7 @@ if (
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
@@ -347,7 +347,7 @@ if (document.querySelector('tbody')) {
 		removeTabindex();
 	}
 
-	if (location.href.startsWith('https://www.canlistore.com/admin/produkty/')) {
+	if (location.href.startsWith('https://www.canlistore.cz/admin/produkty/')) {
 		const toggleButtonElement = document.querySelector('.content-buttons');
 
 		const buttonSpan = document.createElement('span');
@@ -411,7 +411,7 @@ function removeTabindex() {
 
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
@@ -426,7 +426,7 @@ if (
 }
 if (
 	location.href.startsWith(
-		'https://www.canlistore.com/admin/prehled-objednavek/'
+		'https://www.canlistore.cz/admin/prehled-objednavek/'
 	)
 ) {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
@@ -471,7 +471,7 @@ const linksMap = {
 	'Zápisník pro Mateřské školy - PDF k tisku':'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link'
 };
 if (
-	location.href.startsWith('https://www.canlistore.com/admin/objednavky-detail')
+	location.href.startsWith('https://www.canlistore.cz/admin/objednavky-detail')
 ) {
 	document.addEventListener('click', function (event) {
 		// Zkontrolujeme, zda kliknutí bylo na odkaz uvnitř elementu s třídou 'open-modal'
