@@ -1,27 +1,18 @@
-console.log('verze 9.0');
+console.log('verze 9.2');
 
 /* přesunout zasilkovna + do objednávek */
 
-var elementToMove = document.querySelector(
-	'a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277'
-);
-var referenceElement = document.querySelector(
-	'a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509'
-);
+var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
+var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
 if (elementToMove && referenceElement) {
 	var parentElement = referenceElement.parentNode;
 	parentElement.insertBefore(elementToMove, referenceElement);
-	if (
-		location.href.startsWith(
-			'https://www.canlistore.cz/admin/zasilkovna-plugin/'
-		)
-	) {
+	if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
+	{
 		var elementLink122 = document.querySelector('.navigation__link--122');
 		var elementLink606 = document.querySelector('.navigation__link--606');
-		if (elementLink122) {
+		if (elementLink122 && elementLink606) {
 			elementLink122.classList.add('navigation__link--active');
-		}
-		if (elementLink606) {
 			elementLink606.classList.remove('navigation__link--active');
 		}
 	}
@@ -30,26 +21,18 @@ if (elementToMove && referenceElement) {
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/zasilkovna-plugin/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
+{
 	var iframe = document.getElementById('partner-iframe');
 	if (iframe) {
 		iframe.addEventListener('load', function () {
-			var iframeDocument =
-				iframe.contentDocument || iframe.contentWindow.document;
-			var SelectFilertElement = iframeDocument.getElementById(
-				'filter_orders_form_orderStatus'
-			);
-			if (SelectFilertElement) {
-				SelectFilertElement.value = '-2';
-				SelectFilertElement.style.backgroundColor = '#55995555';
+			var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+			var SelectFilterElement = iframeDocument.getElementById('filter_orders_form_orderStatus');
+			if (SelectFilterElement) {
+				SelectFilterElement.value = '-2';
+				SelectFilterElement.style.backgroundColor = '#55995555';
 			}
-			var SelectOrdersElement = iframeDocument.getElementById(
-				'orders_overview_form_massAction_type'
-			);
+			var SelectOrdersElement = iframeDocument.getElementById('orders_overview_form_massAction_type');
 			if (SelectOrdersElement) {
 				SelectOrdersElement.value = 'createPacketsAndCreatePrintLabelsLinks'; // Vybere "Tisknout štítek"
 				SelectOrdersElement.style.backgroundColor = '#55995555'; // Změna barvy pozadí pro vizuální potvrzení
@@ -61,11 +44,8 @@ if (
 /* END zasilkovna+ označení "vyřizuje se" END */
 /* označení více jak 1 ks v objednávce */
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+{
 	setInterval(function () {
 		var cells = document.querySelectorAll('.v2table__cell--number');
 		cells.forEach(function (cell) {
@@ -83,29 +63,24 @@ if (
 /* END označení více jak 1 ks v objednávce END */
 /* Kontrola Dobírek a přehození do vyřizuje se */
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+{
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[7].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll(
-			'td div.v2FormField__select'
-		);
-		// Zkontrolujte, zda div existuje a obsahuje span s obsahem "Dobírkou"
-		var tbody = document.querySelector('tbody');
-		var trs = tbody.querySelectorAll('tr');
-		var trsCount = trs.length;
-		for (var i = 0; i < trsCount; i++) {
-			var v2inlines = trs[i].querySelectorAll(
-				'div.v2inline.v2inline--justifyBetween'
-			);
-			var spanElement = v2inlines[1].querySelector('span');
-			if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
-				var selectElement = divSelectElement[i].querySelector('select');
-				if (selectElement) selectElement.value = '-2';
-				if (selectElement) selectElement.style.backgroundColor = '#55995555';
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		if(divSelectElement.length > 0)
+		{
+			var tbody = document.querySelector('tbody');
+			var trs = tbody.querySelectorAll('tr');
+			var trsCount = trs.length;
+			for (var i = 0; i < trsCount; i++) {
+				var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');
+				var spanElement = v2inlines[1].querySelector('span');
+				if (spanElement && spanElement.textContent.trim() === 'Dobírkou') {
+					var selectElement = divSelectElement[i].querySelector('select');
+					selectElement.value = '-2';
+					selectElement.style.backgroundColor = '#55995555';
+				}
 			}
 		}
 	}
@@ -115,45 +90,48 @@ if (
 
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[6].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll(
-			'td div.v2FormField__select'
-		);
-		var tbody = document.querySelector('tbody');
-		var trs = tbody.querySelectorAll('tr');
-		var trsCount = trs.length;
-		for (var i = 0; i < trsCount; i++) {
-			var v2inlines = trs[i].querySelectorAll(
-				'div.v2inline.v2inline--justifyBetween'
-			);
-			var selectElement = divSelectElement[i].querySelector('select');
-			if (selectElement) selectElement.value = '-2';
-			if (selectElement) selectElement.style.backgroundColor = '#55995555';
-		}
-	}
-
-	/* END Zaplaceno přehodit do Vyřizuje se END */
-	/* Kontrola osobní odběr a přehození do osobní odběr */
-
-	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-	if (dropdownList[5].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll(
-			'td div.v2FormField__select'
-		);
-		var tbody = document.querySelector('tbody');
-		var trs = tbody.querySelectorAll('tr');
-		var trsCount = trs.length;
-		for (var i = 0; i < trsCount; i++) {
-			var v2inlines = trs[i].querySelectorAll(
-				'div.v2inline.v2inline--justifyBetween'
-			);
-			var spanElement = v2inlines[0].querySelector('span');
-			if (spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		if(divSelectElement.length > 0)
+		{
+			var tbody = document.querySelector('tbody');
+			var trs = tbody.querySelectorAll('tr');
+			var trsCount = trs.length;
+			for (var i = 0; i < trsCount; i++) {
 				var selectElement = divSelectElement[i].querySelector('select');
-				if (selectElement) selectElement.value = '30';
+				if (selectElement) selectElement.value = '-2';
 				if (selectElement) selectElement.style.backgroundColor = '#55995555';
 			}
 		}
 	}
+
+/* END Zaplaceno přehodit do Vyřizuje se END */
+/* Kontrola osobní odběr ve vyřizuje se a přehození do osobní odběr */
+
+	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
+
+
+	if (dropdownList[5].classList.contains('active')) {
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		if(divSelectElement.length > 0)
+		{
+			var tbody = document.querySelector('tbody');
+			var trs = tbody.querySelectorAll('tr');
+			var trsCount = trs.length;
+			for (var i = 0; i < trsCount; i++) {
+				var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');
+				var spanElement = v2inlines[0].querySelector('span');
+				if (spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
+					var selectElement = divSelectElement[i].querySelector('select');
+					if (selectElement) selectElement.value = '30';
+					if (selectElement) selectElement.style.backgroundColor = '#ffff0040';
+				}
+			}
+		}
+	}
+	
+	/* END Kontrola osobní odběr ve vyřizuje se a přehození do osobní odběr END */
+	/* Kontrola osobní odběr v nevyřizenýcha přehození do vyřizuje se */
+
 	if (dropdownList[7].classList.contains('active')) {
 		var divSelectElement = document.querySelectorAll(
 			'td div.v2FormField__select'
@@ -174,62 +152,85 @@ if (
 				spanElement.textContent.trim() === 'Osobní odběr'
 			) {
 				var selectElement = divSelectElement[i].querySelector('select');
-				if (selectElement) selectElement.value = '30';
+				if (selectElement) selectElement.value = '-2';
 				if (selectElement) selectElement.style.backgroundColor = '#55995555';
 			}
 		}
 	}
 }
 
-/* END Kontrola osobní odběr a přehození do osobní odběr END */
+/* END Kontrola osobní odběr v nevyřizenýcha přehození do vyřizuje se END */
 /* počet dnů u datumu */
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+{
 	var spans = document.querySelectorAll('span.grey.nowrap');
-	var currentDate = new Date();
-	spans.forEach(function (span) {
-		var dateString = span.textContent.trim();
-		var dateParts = dateString.split(' ')[0].split('.');
-		var timeParts = dateString.split(' ')[1].split(':');
-		var dateObject = new Date(
-			parseInt(dateParts[2]),
-			parseInt(dateParts[1]) - 1,
-			parseInt(dateParts[0]),
-			parseInt(timeParts[0]),
-			parseInt(timeParts[1])
-		);
-		var timeDiff = currentDate - dateObject;
-		var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
-		const parentTr = span.closest('tr');
-		const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
-		if (selectField1.nextSibling) {
-			let newSpan = document.createElement('span');
-			newSpan.textContent += '\u00A0(' + daysDiff + ')\u00A0';
-			selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
+	if(spans.length > 0)
+	{
+		var currentDate = new Date();
+		spans.forEach(function (span, index) {
+			var dateString = span.textContent.trim();
+			var dateParts = dateString.split(' ')[0].split('.');
+			var timeParts = dateString.split(' ')[1].split(':');
+			var dateObject = new Date(
+				parseInt(dateParts[2]),
+				parseInt(dateParts[1]) - 1,
+				parseInt(dateParts[0]),
+				parseInt(timeParts[0]),
+				parseInt(timeParts[1])
+			);
+			var timeDiff = currentDate - dateObject;
+			var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) - 1;
+			const parentTr = span.closest('tr');
+			const selectField1 = parentTr.querySelector('[data-testid="orderCode"]');
+			if (selectField1.nextSibling) {
+				let newSpan = document.createElement('span');
+				newSpan.textContent += '\u00A0(' + daysDiff + ')\u00A0';
+				selectField1.parentNode.insertBefore(newSpan, selectField1.nextSibling);
 
-			var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
-			if (dropdownList[7].classList.contains('active')) {
-				if (daysDiff >= 5) {
-					newSpan.style.backgroundColor = '#cf000363';
-					newSpan.style.borderRadius = '10px';
+				var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
+
+	/* nevyřízeno */
+				
+				if (dropdownList[7].classList.contains('active')) { 
+					if (daysDiff >= 5) {
+						newSpan.style.backgroundColor = '#cf000363';
+						newSpan.style.borderRadius = '10px';
+
+	/* přesunout dlouho nezaplacené objednávky do "Stále nezaplacené" */
+
+						var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+						var selectElement = divSelectElement[index].querySelector('select');
+						if(selectElement) selectElement.value = '39';
+						if(selectElement) selectElement.style.backgroundColor = '#55995555';
+
+	/* END přesunout dlouho nezaplacené objednávky do "Stále nezaplacené" END */ 
+	/* END nevyřízeno END */
+
+					}
 				}
-			}
-		}
-	});
-}
 
+	/* osobní odběr */			
+
+				if (dropdownList[4].classList.contains('active')) {
+					if (daysDiff >= 7)
+					{
+						newSpan.style.backgroundColor = '#cf000363';
+						newSpan.style.borderRadius = '10px';
+					}
+				}
+
+	/* END osobní odběr END */	
+
+			}
+		});
+	}
+}
 /* END počet dnů u datumu END */
 /* kontrola stavu zásilek - odeslané*/
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+{
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[3].classList.contains('active')) {
 		const contentDiv = document.getElementById('bank-connection-notifications');
@@ -240,9 +241,7 @@ if (
 		button.style.borderRadius = '2px';
 		button.style.transform = 'translate(0px, 1px)';
 		button.addEventListener('click', function () {
-			window.open(
-				'https://client.packeta.com/cs/packets/list?list-id=1&do=list-export'
-			);
+			window.open('https://client.packeta.com/cs/packets/list?list-id=1&do=list-export');
 		});
 		contentDiv.appendChild(button);
 
@@ -251,9 +250,7 @@ if (
 		fileInput.setAttribute('id', 'csvFileInput');
 		fileInput.setAttribute('accept', '.csv');
 		contentDiv.appendChild(fileInput);
-		document
-			.getElementById('csvFileInput')
-			.addEventListener('change', handleFileSelect, false);
+		document.getElementById('csvFileInput').addEventListener('change', handleFileSelect, false);
 
 		let data = []; // Data budou globální pro možnost opakované kontroly
 	}
@@ -276,9 +273,7 @@ if (
 		reader.readAsText(file);
 	}
 	function checkOrdersOnPage() {
-		const objednavkyNaStrance = document.querySelectorAll(
-			'[data-testid="orderCode"]'
-		);
+		const objednavkyNaStrance = document.querySelectorAll('[data-testid="orderCode"]');
 		objednavkyNaStrance.forEach(function (objednavkaElement) {
 			const objednavkaKod = objednavkaElement.textContent;
 			const hledanaObjednavka = data.find(function (item) {
@@ -286,11 +281,11 @@ if (
 			});
 			if (hledanaObjednavka) {
 				const parentTr = objednavkaElement.closest('tr');
-				const selectField1 = parentTr.querySelector(
-					'[data-testid="orderRowDeliveryType"]'
-				);
+				const selectField1 = parentTr.querySelector('[data-testid="orderRowDeliveryType"]');
 				if (selectField1) {
 					selectField1.textContent = hledanaObjednavka.stav;
+					selectField1.style.padding = '0px 10px 0px 10px';
+					selectField1.style.borderRadius = '10px';
 				}
 				if (hledanaObjednavka.stav === 'Připravena k výdeji') {
 					const targetDateParts = hledanaObjednavka.datum.split('.');
@@ -310,10 +305,9 @@ if (
 					} else if (daysDiff == 2) {
 						selectField1.style.backgroundColor = '#55995555';
 					}
-					selectField1.style.padding = '0px 10px 0px 10px';
-					selectField1.style.borderRadius = '10px';
 				}
-				if (hledanaObjednavka.stav === 'Doručena') {
+				if (hledanaObjednavka.stav === 'Doručena')
+				{
 					const parentTr = objednavkaElement.closest('tr');
 					const selectField2 = parentTr.querySelector('.selectField.sm');
 					if (selectField2) {
@@ -329,6 +323,8 @@ if (
 				if (selectField1) {
 					selectField1.textContent = 'Objednávka nebyla nalezena';
 					selectField1.style.backgroundColor = '#99555555';
+					selectField1.style.padding = '0px 10px 0px 10px';
+					selectField1.style.borderRadius = '10px';
 				}
 			}
 		});
@@ -409,38 +405,64 @@ function removeTabindex() {
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 /* zvýraznění přehazování objednávek do odesláno */
 
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+{
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[5].classList.contains('active')) {
-		const links = document.querySelectorAll('a');
-		links.forEach((link) => {
-			if (link.getAttribute('rel') === 'massStatusChange|2') {
-				link.style.backgroundColor = '#55995555';
-			}
-		});
+
+	    var originalButton = document.querySelector('a[rel="massStatusChange|2"]');
+		var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+		
+		originalButton.style.backgroundColor = '#55995555';
+
+		if (originalButton && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
+		{
+    	    var newButton = document.createElement('button');
+    	    newButton.className = 'btn btn-sm btn-secondary';
+    	    newButton.style.marginBottom = '10px';
+    	    newButton.style.backgroundColor = '#55995555';
+    	    newButton.innerText = 'Odeslaná';
+
+			newButton.addEventListener('click', function(event)
+			{
+    	       	event.preventDefault();
+    	        originalButton.click();
+    	    });
+        
+    	    var dropdownMenu = document.querySelector('.mass-action');
+    	    (dropdownMenu).appendChild(newButton);
+    	}
 	}
-}
-if (
-	location.href.startsWith(
-		'https://www.canlistore.cz/admin/prehled-objednavek/'
-	)
-) {
+
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[4].classList.contains('active')) {
-		const links = document.querySelectorAll('a');
-		links.forEach((link) => {
-			if (link.getAttribute('rel') === 'massStatusChange|-3') {
-				link.style.backgroundColor = '#55995555';
-			}
-		});
+
+	    var originalButton = document.querySelector('a[rel="massStatusChange|-3"]');
+		var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+		
+		originalButton.style.backgroundColor = '#55995555';
+
+		if (originalButton && originalButton.textContent.includes("Vyřízena") && parentSpan && parentSpan.textContent.includes("Stav"))
+		{
+    	    var newButton = document.createElement('button');
+    	    newButton.className = 'btn btn-sm btn-secondary';
+    	    newButton.style.marginBottom = '10px';
+    	    newButton.style.backgroundColor = '#55995555';
+    	    newButton.innerText = 'Vyřízena';
+
+			newButton.addEventListener('click', function(event)
+			{
+    	       	event.preventDefault();
+    	        originalButton.click();
+    	    });
+        
+    	    var dropdownMenu = document.querySelector('.mass-action');
+    	    (dropdownMenu).appendChild(newButton);
+    	}
 	}
 }
 
-/* END zvýraznění přehazování objednávek do odesláno END */
+/* END zvýraznění přehazování objednávek do odesláno a vyřízeno END */
 /* odesílání digitálních proiduktů */
 
 const linksMap = {
