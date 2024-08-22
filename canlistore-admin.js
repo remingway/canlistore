@@ -1,33 +1,5 @@
-console.log('verze 9.3');
-
+console.log("verze 9.4");
 /* přesunout zasilkovna + do objednávek */
-
-var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
-var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
-if (elementToMove && referenceElement) {
-	var parentElement = referenceElement.parentNode;
-	parentElement.insertBefore(elementToMove, referenceElement);
-	if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
-	{
-		var elementLink122 = document.querySelector('.navigation__link--122');
-		var elementLink606 = document.querySelector('.navigation__link--606');
-		if (elementLink122 && elementLink606) {
-			elementLink122.classList.add('navigation__link--active');
-			elementLink606.classList.remove('navigation__link--active');
-		}
-	}
-}
-
-/* END přesunout zasilkovna + do objednávek END */
-/* zasilkovna+ označení "vyřizuje se" */
-
-if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
-{
-	var iframe = document.getElementById('partner-iframe');
-	if (iframe) {
-		iframe.addEventListener('load', function () {
-			var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-			var SelectFilterElement = iframeDocument.getElementById('filter_orders_form_orderStatus');/* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
@@ -548,7 +520,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
 				sessionStorage.setItem('autoClick', 'false');
 				sessionStorage.setItem('saveComplete', 'false');
 				window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-2/';
-      }
+      		}
 		}
 	});
 }
