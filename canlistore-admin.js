@@ -1,6 +1,33 @@
-console.log('verze 9.2');
+console.log('verze 9.3');
 
 /* přesunout zasilkovna + do objednávek */
+
+var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
+var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
+if (elementToMove && referenceElement) {
+	var parentElement = referenceElement.parentNode;
+	parentElement.insertBefore(elementToMove, referenceElement);
+	if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
+	{
+		var elementLink122 = document.querySelector('.navigation__link--122');
+		var elementLink606 = document.querySelector('.navigation__link--606');
+		if (elementLink122 && elementLink606) {
+			elementLink122.classList.add('navigation__link--active');
+			elementLink606.classList.remove('navigation__link--active');
+		}
+	}
+}
+
+/* END přesunout zasilkovna + do objednávek END */
+/* zasilkovna+ označení "vyřizuje se" */
+
+if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
+{
+	var iframe = document.getElementById('partner-iframe');
+	if (iframe) {
+		iframe.addEventListener('load', function () {
+			var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+			var SelectFilterElement = iframeDocument.getElementById('filter_orders_form_orderStatus');/* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
 var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
@@ -419,7 +446,6 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 		{
     	    var newButton = document.createElement('button');
     	    newButton.className = 'btn btn-sm btn-secondary';
-    	    newButton.style.marginBottom = '10px';
     	    newButton.style.backgroundColor = '#55995555';
     	    newButton.innerText = 'Odeslaná';
 
@@ -462,7 +488,72 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 	}
 }
 
-/* END zvýraznění přehazování objednávek do odesláno a vyřízeno END */
+/* END zvýraznění přehazování objednávek do odesláno END */
+/* vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" */
+
+var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
+if (window.location.href.includes('/admin/prehled-objednavek/') && dropdownLists[5].classList.contains('active'))
+{
+
+	const newButton = document.createElement('button');
+	newButton.className = 'btn btn-sm btn-secondary';
+	newButton.style.marginLeft = '20px';
+	newButton.style.backgroundColor = '#55995555';
+	newButton.innerText = 'Zkontrolovat';
+
+	document.querySelector('.mass-action').appendChild(newButton);
+	
+	sessionStorage.setItem('autoClick', 'false');
+	sessionStorage.setItem('saveComplete', 'false');
+
+	newButton.addEventListener('click', function()
+	{
+		sessionStorage.setItem('autoClick', 'true');
+    window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/33/';
+  });
+
+}
+else if (window.location.href.includes('/admin/prehled-objednavek/33/'))
+{
+    window.addEventListener('load', function() {
+		if (sessionStorage.getItem('autoClick') === 'true')
+		{
+	    const saveButton = document.querySelector('[data-testid="buttonSaveAndStay"]');
+	    if (saveButton && sessionStorage.getItem('saveComplete') === 'false')
+	    {
+	    	sessionStorage.setItem('saveComplete', 'true');
+			  saveButton.click();
+			}
+			else
+			{
+				sessionStorage.setItem('saveComplete', 'true');
+				window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-1/';
+      }
+		}
+	});
+}
+else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
+{
+    window.addEventListener('load', function() {
+		if (sessionStorage.getItem('autoClick') === 'true')
+		{
+	    const saveButton = document.querySelector('[data-testid="buttonSaveAndStay"]');
+	    if (saveButton && sessionStorage.getItem('saveComplete') === 'true')
+	    {
+	    	sessionStorage.setItem('saveComplete', 'false');
+			  saveButton.click();
+			}
+			else
+			{
+				sessionStorage.setItem('autoClick', 'false');
+				sessionStorage.setItem('saveComplete', 'false');
+				window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-2/';
+      }
+		}
+	});
+}
+
+/* END vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" END */
 /* odesílání digitálních proiduktů */
 
 const linksMap = {
