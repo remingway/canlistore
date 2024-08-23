@@ -1,4 +1,4 @@
-console.log("verze 9.4");
+console.log("verze 9.5");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
@@ -408,55 +408,56 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[5].classList.contains('active')) {
-
-	    var originalButton = document.querySelector('a[rel="massStatusChange|2"]');
-		var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
-		
-		originalButton.style.backgroundColor = '#55995555';
-
-		if (originalButton && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
+		if(document.querySelector('a[rel="massStatusChange|2"]'))
 		{
-    	    var newButton = document.createElement('button');
-    	    newButton.className = 'btn btn-sm btn-secondary';
-    	    newButton.style.backgroundColor = '#55995555';
-    	    newButton.innerText = 'Odeslaná';
+	    	var originalButton = document.querySelector('a[rel="massStatusChange|2"]');
+			var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+			originalButton.style.backgroundColor = '#55995555';
 
-			newButton.addEventListener('click', function(event)
+			if (originalButton && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
 			{
-    	       	event.preventDefault();
-    	        originalButton.click();
-    	    });
+    		    var newButtonOdeslana = document.createElement('button');
+    		    newButtonOdeslana.className = 'btn btn-sm btn-secondary';
+    		    newButtonOdeslana.style.backgroundColor = '#55995555';
+    		    newButtonOdeslana.innerText = 'Odeslaná';
+
+				newButtonOdeslana.addEventListener('click', function(event)
+				{
+    		        originalButton.click();
+    		    });
         
-    	    var dropdownMenu = document.querySelector('.mass-action');
-    	    (dropdownMenu).appendChild(newButton);
-    	}
+   	 		    var dropdownMenu = document.querySelector('.mass-action');
+   		 	    (dropdownMenu).appendChild(newButtonOdeslana);
+    		}
+		}	
 	}
 
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[4].classList.contains('active')) {
-
-	    var originalButton = document.querySelector('a[rel="massStatusChange|-3"]');
-		var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
-		
-		originalButton.style.backgroundColor = '#55995555';
-
-		if (originalButton && originalButton.textContent.includes("Vyřízena") && parentSpan && parentSpan.textContent.includes("Stav"))
+		if(document.querySelector('a[rel="massStatusChange|-3"]'))
 		{
-    	    var newButton = document.createElement('button');
-    	    newButton.className = 'btn btn-sm btn-secondary';
-    	    newButton.style.marginBottom = '10px';
-    	    newButton.style.backgroundColor = '#55995555';
-    	    newButton.innerText = 'Vyřízena';
+	    	var originalButton = document.querySelector('a[rel="massStatusChange|-3"]');
+			var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+		
+			originalButton.style.backgroundColor = '#55995555';
 
-			newButton.addEventListener('click', function(event)
+			if (originalButton && originalButton.textContent.includes("Vyřízena") && parentSpan && parentSpan.textContent.includes("Stav"))
 			{
-    	       	event.preventDefault();
-    	        originalButton.click();
-    	    });
+    		    var newButtonVyrizena = document.createElement('button');
+    		    newButtonVyrizena.className = 'btn btn-sm btn-secondary';
+    		    newButtonVyrizena.style.marginBottom = '10px';
+    		    newButtonVyrizena.style.backgroundColor = '#55995555';
+    		    newButtonVyrizena.innerText = 'Vyřízena';
+
+				newButtonVyrizena.addEventListener('click', function(event)
+				{
+    	    	    originalButton.click();
+    	  	 	});
         
-    	    var dropdownMenu = document.querySelector('.mass-action');
-    	    (dropdownMenu).appendChild(newButton);
-    	}
+	    	    var dropdownMenu = document.querySelector('.mass-action');
+	    	    (dropdownMenu).appendChild(newButtonVyrizena);
+	    	}
+		}
 	}
 }
 
@@ -466,63 +467,64 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 if (window.location.href.includes('/admin/prehled-objednavek/') && dropdownLists[5].classList.contains('active'))
 {
+	const newDivForButtonZkontrolovat = document.createElement('div');
+	newDivForButtonZkontrolovat.style.display = 'flex';
+	newDivForButtonZkontrolovat.style.justifyContent = 'flex-end';
 
-	const newButton = document.createElement('button');
-	newButton.className = 'btn btn-sm btn-secondary';
-	newButton.style.marginLeft = '20px';
-	newButton.style.backgroundColor = '#55995555';
-	newButton.innerText = 'Zkontrolovat';
+	const newButtonZkontrolovat = document.createElement('button');
+	newButtonZkontrolovat.className = 'btn btn-sm btn-secondary';
+	newButtonZkontrolovat.style.position = 'absolute';
+	newButtonZkontrolovat.style.transform = 'translateY(-30px)';
+	newButtonZkontrolovat.style.marginLeft = '20px';
+	newButtonZkontrolovat.style.backgroundColor = '#55995555';
+	newButtonZkontrolovat.innerText = 'Zkontrolovat';
+	if (sessionStorage.getItem('autoClick') === 'true') newButtonZkontrolovat.innerText = 'Hotovo';	
 
-	document.querySelector('.mass-action').appendChild(newButton);
-	
+	document.querySelector('#bank-connection-notifications').appendChild(newDivForButtonZkontrolovat);
+	newDivForButtonZkontrolovat.appendChild(newButtonZkontrolovat)
+
 	sessionStorage.setItem('autoClick', 'false');
 	sessionStorage.setItem('saveComplete', 'false');
 
-	newButton.addEventListener('click', function()
+	newButtonZkontrolovat.addEventListener('click', function()
 	{
 		sessionStorage.setItem('autoClick', 'true');
     window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/33/';
   });
-
 }
 else if (window.location.href.includes('/admin/prehled-objednavek/33/'))
 {
-    window.addEventListener('load', function() {
-		if (sessionStorage.getItem('autoClick') === 'true')
+    if (sessionStorage.getItem('autoClick') === 'true')
+	{
+		const saveButton = document.querySelector('[data-testid="buttonSaveAndStay"]');
+	    if (saveButton && sessionStorage.getItem('saveComplete') === 'false')
+	    {
+	    	sessionStorage.setItem('saveComplete', 'true');
+		  saveButton.click();
+		}
+		else
 		{
+			sessionStorage.setItem('saveComplete', 'false');
+			window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-1/';
+       	}
+	}
+}
+else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
+{
+	if (sessionStorage.getItem('autoClick') === 'true')
+	{
 	    const saveButton = document.querySelector('[data-testid="buttonSaveAndStay"]');
 	    if (saveButton && sessionStorage.getItem('saveComplete') === 'false')
 	    {
 	    	sessionStorage.setItem('saveComplete', 'true');
-			  saveButton.click();
-			}
-			else
-			{
-				sessionStorage.setItem('saveComplete', 'true');
-				window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-1/';
-      }
+			saveButton.click();
 		}
-	});
-}
-else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
-{
-    window.addEventListener('load', function() {
-		if (sessionStorage.getItem('autoClick') === 'true')
+		else
 		{
-	    const saveButton = document.querySelector('[data-testid="buttonSaveAndStay"]');
-	    if (saveButton && sessionStorage.getItem('saveComplete') === 'true')
-	    {
-	    	sessionStorage.setItem('saveComplete', 'false');
-			  saveButton.click();
-			}
-			else
-			{
-				sessionStorage.setItem('autoClick', 'false');
-				sessionStorage.setItem('saveComplete', 'false');
-				window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-2/';
-      		}
-		}
-	});
+			sessionStorage.setItem('saveComplete', 'false');
+			window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-2/';
+    	}
+	}
 }
 
 /* END vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" END */
