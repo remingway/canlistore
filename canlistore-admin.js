@@ -1,4 +1,4 @@
-console.log("verze 9.5");
+console.log("verze 9.6");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
@@ -208,19 +208,30 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 
 					}
 				}
-
-	/* osobní odběr */			
-
-				if (dropdownList[4].classList.contains('active')) {
+				if (dropdownList[4].classList.contains('active')) {	/* osobní odběr */			
 					if (daysDiff >= 7)
 					{
 						newSpan.style.backgroundColor = '#cf000363';
 						newSpan.style.borderRadius = '10px';
 					}
 				}
-
-	/* END osobní odběr END */	
-
+				if (dropdownList[3].classList.contains('active')) { /* odesláno */
+				
+        			var previousMonth = currentDate.getMonth() - 1;
+       				var previousMonthYear = currentDate.getFullYear();
+           			console.log(previousMonth);
+           			if (previousMonth < 0) {
+			            previousMonth = 11;
+	   			        previousMonthYear -= 1;
+	       			}
+					var elementDobírky = document.querySelector(`tr:nth-child(${index+1}) td:nth-child(5) div.v2inline.v2inline--justifyBetween span`);
+            		if (elementDobírky && elementDobírky.textContent.trim() === 'Dobírkou') {
+						if (dateObject.getMonth() === previousMonth && dateObject.getFullYear() === previousMonthYear) {
+	            			newSpan.style.backgroundColor = '#0000ff66';
+	            			newSpan.style.borderRadius = '10px';
+	            		}
+	            	}
+				}
 			}
 		});
 	}
