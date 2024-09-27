@@ -1,4 +1,4 @@
-console.log("verze 9.6");
+console.log("verze 9.7");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
@@ -46,7 +46,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/
 if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
 {
 	setInterval(function () {
-		var cells = document.querySelectorAll('.v2table__cell--number');
+		var cells = document.querySelectorAll('.table__cell--number');
 		cells.forEach(function (cell) {
 			if (
 				cell.innerText.trim() != '1 ks' &&
