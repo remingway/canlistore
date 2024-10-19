@@ -1,4 +1,4 @@
-console.log("verze 9.7");
+console.log("verze 9.8");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
@@ -46,7 +46,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/
 if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
 {
 	setInterval(function () {
-		var cells = document.querySelectorAll('.table__cell--number');
+		var cells = document.querySelectorAll('.v2table__cell--number');
 		cells.forEach(function (cell) {
 			if (
 				cell.innerText.trim() != '1 ks' &&
@@ -297,7 +297,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 					selectField1.style.padding = '0px 10px 0px 10px';
 					selectField1.style.borderRadius = '10px';
 				}
-				if (hledanaObjednavka.stav === 'Připravena k výdeji') {
+				if (hledanaObjednavka.stav === 'Zásilka je připravena k vyzvednutí') {
 					const targetDateParts = hledanaObjednavka.datum.split('.');
 					const targetDate = new Date(
 						`20${targetDateParts[2]}-${targetDateParts[1]}-${targetDateParts[0]}`
@@ -316,7 +316,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 						selectField1.style.backgroundColor = '#55995555';
 					}
 				}
-				if (hledanaObjednavka.stav === 'Doručena')
+				if (hledanaObjednavka.stav === 'A je to! Zásilka je u vás')
 				{
 					const parentTr = objednavkaElement.closest('tr');
 					const selectField2 = parentTr.querySelector('.selectField.sm');
