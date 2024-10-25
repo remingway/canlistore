@@ -1,21 +1,24 @@
-console.log("verze 9.9");
+console.log("verze 10.0");
 /* přesunout zasilkovna + do objednávek */
 
-var elementToMove = document.querySelector('a[href="/admin/zasilkovna-plugin/"].navigation__link.navigation__link--1277');
-var referenceElement = document.querySelector('a[href="/admin/danove-doklady/"].navigation__link.navigation__link--509');
-if (elementToMove && referenceElement) {
-	var parentElement = referenceElement.parentNode;
-	parentElement.insertBefore(elementToMove, referenceElement);
-	if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
-	{
-		var elementLink122 = document.querySelector('.navigation__link--122');
-		var elementLink606 = document.querySelector('.navigation__link--606');
-		if (elementLink122 && elementLink606) {
-			elementLink122.classList.add('navigation__link--active');
-			elementLink606.classList.remove('navigation__link--active');
-		}
-	}
-}
+var elementToMove1 = document.querySelector('a[href="/admin/shipment-listing/"].navigation__link.navigation__link--1476');
+var elementToMove2 = document.querySelector('a[href="/admin/shoptet-baliky-svozy/"].navigation__link.navigation__link--1666');
+var elementToMove3 = document.querySelector('li a[href="/admin/prehled-objednavek/"].navigation__link.navigation__link--123').parentNode;
+var referenceElement = document.querySelector('li a[href="/admin/objednavky/"].navigation__link.navigation__link--122').parentNode;
+
+// Vytvoř nový <li> element
+var newListItem = document.createElement('li');
+
+// Vlož oba elementy do nového <li>
+newListItem.appendChild(elementToMove1);
+newListItem.appendChild(elementToMove2);
+
+document.querySelector('ul .navigation__link--1545').parentNode.style.display = 'none';
+
+newListItem.style.display = 'flex';
+// Vlož nový <li> před referenceElement
+referenceElement.parentNode.insertBefore(newListItem, referenceElement);
+referenceElement.parentNode.insertBefore(elementToMove3, referenceElement);
 
 /* END přesunout zasilkovna + do objednávek END */
 /* zasilkovna+ označení "vyřizuje se" */
@@ -132,31 +135,32 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 	/* Kontrola osobní odběr v nevyřizenýcha přehození do vyřizuje se */
 
 	if (dropdownList[7].classList.contains('active')) {
-		var divSelectElement = document.querySelectorAll(
-			'td div.v2FormField__select'
-		);
-		var tbody = document.querySelector('tbody');
-		var trs = tbody.querySelectorAll('tr');
-		var trsCount = trs.length;
-		for (var i = 0; i < trsCount; i++) {
-			var v2inlines = trs[i].querySelectorAll(
-				'div.v2inline.v2inline--justifyBetween'
-			);
-			var spanElement = v2inlines[0].querySelector('span');
-			var spanElementPay = v2inlines[1].querySelector('span');
-			if (
-				spanElementPay &&
-				spanElementPay.textContent.trim() === 'Hotově / kartou' &&
-				spanElement &&
-				spanElement.textContent.trim() === 'Osobní odběr'
-			) {
-				var selectElement = divSelectElement[i].querySelector('select');
-				if (selectElement) selectElement.value = '-2';
-				if (selectElement) selectElement.style.backgroundColor = '#55995555';
+		var divSelectElement = document.querySelectorAll('td div.v2FormField__select');
+		if(divSelectElement.length > 0)
+		{
+			var tbody = document.querySelector('tbody');
+				var trs = tbody.querySelectorAll('tr');
+				var trsCount = trs.length;
+				for (var i = 0; i < trsCount; i++) {
+					var v2inlines = trs[i].querySelectorAll(
+						'div.v2inline.v2inline--justifyBetween'
+					);
+					var spanElement = v2inlines[0].querySelector('span');
+					var spanElementPay = v2inlines[1].querySelector('span');
+					if (
+						spanElementPay &&
+						spanElementPay.textContent.trim() === 'Hotově / kartou' &&
+						spanElement &&
+						spanElement.textContent.trim() === 'Osobní odběr'
+					) {
+						var selectElement = divSelectElement[i].querySelector('select');
+						if (selectElement) selectElement.value = '-2';
+						if (selectElement) selectElement.style.backgroundColor = '#55995555';
+					}
+				}
 			}
 		}
 	}
-}
 
 /* END Kontrola osobní odběr v nevyřizenýcha přehození do vyřizuje se END */
 /* počet dnů u datumu */
@@ -355,7 +359,6 @@ if (document.querySelector('tbody')) {
 
 	if (location.href.startsWith('https://www.canlistore.cz/admin/produkty/')) {
 		const toggleButtonElement = document.querySelector('.content-buttons');
-
 		const buttonSpan = document.createElement('span');
 		const buttonA = document.createElement('a');
 		buttonA.id = 'toggleTabindex';
@@ -422,7 +425,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 		if(document.querySelector('a[rel="massStatusChange|2"]'))
 		{
 	    	var originalButton = document.querySelector('a[rel="massStatusChange|2"]');
-			var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+			var parentSpan = originalButton.closest('.massAction__submenuTrigger').querySelector('.massAction__submenuHeader');
 			originalButton.style.backgroundColor = '#55995555';
 
 			if (originalButton && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
@@ -437,7 +440,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
     		        originalButton.click();
     		    });
         
-   	 		    var dropdownMenu = document.querySelector('.mass-action');
+   	 		    var dropdownMenu = document.querySelector('.massAction');
    		 	    (dropdownMenu).appendChild(newButtonOdeslana);
     		}
 		}	
@@ -448,7 +451,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 		if(document.querySelector('a[rel="massStatusChange|-3"]'))
 		{
 	    	var originalButton = document.querySelector('a[rel="massStatusChange|-3"]');
-			var parentSpan = originalButton.closest('.mass-action-submenu-trigger').querySelector('.mass-action-submenu-header');
+			var parentSpan = originalButton.closest('.massAction__submenuTrigger').querySelector('.massAction__submenuHeader');
 		
 			originalButton.style.backgroundColor = '#55995555';
 
@@ -465,7 +468,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
     	    	    originalButton.click();
     	  	 	});
         
-	    	    var dropdownMenu = document.querySelector('.mass-action');
+	    	    var dropdownMenu = document.querySelector('.massAction');
 	    	    (dropdownMenu).appendChild(newButtonVyrizena);
 	    	}
 		}
@@ -511,7 +514,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/33/'))
 	    if (saveButton && sessionStorage.getItem('saveComplete') === 'false')
 	    {
 	    	sessionStorage.setItem('saveComplete', 'true');
-		  saveButton.click();
+		  	saveButton.click();
 		}
 		else
 		{
