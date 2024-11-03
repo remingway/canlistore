@@ -1,4 +1,4 @@
-console.log("verze 10.0");
+console.log("verze 10.1");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove1 = document.querySelector('a[href="/admin/shipment-listing/"].navigation__link.navigation__link--1476');
@@ -12,8 +12,6 @@ var newListItem = document.createElement('li');
 // Vlož oba elementy do nového <li>
 newListItem.appendChild(elementToMove1);
 newListItem.appendChild(elementToMove2);
-
-document.querySelector('ul .navigation__link--1545').parentNode.style.display = 'none';
 
 newListItem.style.display = 'flex';
 // Vlož nový <li> před referenceElement
