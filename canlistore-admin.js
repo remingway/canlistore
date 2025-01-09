@@ -1,4 +1,4 @@
-console.log("verze 10.1");
+console.log("verze 10.2");
 /* přesunout zasilkovna + do objednávek */
 
 var elementToMove1 = document.querySelector('a[href="/admin/shipment-listing/"].navigation__link.navigation__link--1476');
@@ -540,7 +540,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
 }
 
 /* END vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" END */
-/* odesílání digitálních proiduktů */
+/* odesílání digitálních produktů */
 
 const linksMap = {
 	'Digitální diář Minimalistický':'https://drive.google.com/drive/folders/18elDfL7V4Hgvt5HTH-G_BGOFT4TuiT1u?usp=drive_link',
@@ -625,4 +625,60 @@ if (
 		}
 	});
 }
-/* END odesílání digitálních proiduktů END */
+/* END odesílání digitálních produktů END */
+/* kontrola custom produktu a vložení iunformací do tlačítka */
+function handleButtonClick() {
+    if (window.location.href === "https://www.canlistore.cz/admin/pokladna/univerzalni-produkt/") {
+        const productActionButton = document.querySelector('.btn.btn-lg.btn-action.product-action');
+        if (productActionButton) {
+            productActionButton.addEventListener('click', () => {
+                const now = new Date();
+                const formattedDate = now.toLocaleString('cs-CZ');
+                const input = document.getElementById('cash-desk-hollow-product-name');
+                const inputValue = input ? input.value : 'Název neznámý';
+                const customProductNotification = `custom produkt\n${formattedDate}\nnázev:${inputValue}`;
+                const existingNotifications = localStorage.getItem('customProductNotification');
+                const updatedNotifications = existingNotifications
+                    ? `${existingNotifications}\n\n${customProductNotification}`
+                    : customProductNotification;
+                localStorage.setItem('customProductNotification', updatedNotifications);
+            });
+        }
+    }
+}
+
+function createCopyButton() {
+	if (location.href.startsWith('https://www.canlistore.cz/admin')){
+    const customProductNotification = localStorage.getItem('customProductNotification');
+    if (!customProductNotification) {
+        return;
+    }
+    const copyNotificationButton = document.createElement('button');
+    copyNotificationButton.textContent = 'custom produkt';
+  	copyNotificationButton.style.position = 'fixed';
+    copyNotificationButton.style.top = '10px';
+    copyNotificationButton.style.left = '50%';
+    copyNotificationButton.style.backgroundColor = 'green';
+    copyNotificationButton.style.color = 'white';
+    copyNotificationButton.style.border = 'none';
+    copyNotificationButton.style.padding = '10px 20px';
+    copyNotificationButton.style.cursor = 'pointer';
+    copyNotificationButton.style.zIndex = '10000';
+
+    copyNotificationButton.addEventListener('click', () => {
+        navigator.clipboard.writeText(customProductNotification)
+            .then(() => {
+                localStorage.removeItem('customProductNotification');
+                copyNotificationButton.style.display = 'none';
+            })
+            .catch((error) => {
+                console.error('Chyba při kopírování do schránky:', error);
+            });
+    });
+    document.body.appendChild(copyNotificationButton);
+	}
+}
+
+createCopyButton();
+handleButtonClick();
+/* END kontrola custom produktu a vložení iunformací do tlačítka END */
