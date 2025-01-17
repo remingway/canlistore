@@ -1,4 +1,4 @@
-console.log("verze 10.2");
+console.log("verze 10.3");
 /* přesunout zasilkovna + do objednávek */
 var elementToMove3 = document.querySelector('li a[href="/admin/prehled-objednavek/"].navigation__link.navigation__link--123').parentNode;
 var referenceElement = document.querySelector('li a[href="/admin/objednavky/"].navigation__link.navigation__link--122').parentNode;
