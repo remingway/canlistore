@@ -1,21 +1,7 @@
 console.log("verze 10.2");
 /* přesunout zasilkovna + do objednávek */
-
-var elementToMove1 = document.querySelector('a[href="/admin/shipment-listing/"].navigation__link.navigation__link--1476');
-var elementToMove2 = document.querySelector('a[href="/admin/shoptet-baliky-svozy/"].navigation__link.navigation__link--1666');
 var elementToMove3 = document.querySelector('li a[href="/admin/prehled-objednavek/"].navigation__link.navigation__link--123').parentNode;
 var referenceElement = document.querySelector('li a[href="/admin/objednavky/"].navigation__link.navigation__link--122').parentNode;
-
-// Vytvoř nový <li> element
-var newListItem = document.createElement('li');
-
-// Vlož oba elementy do nového <li>
-newListItem.appendChild(elementToMove1);
-newListItem.appendChild(elementToMove2);
-
-newListItem.style.display = 'flex';
-// Vlož nový <li> před referenceElement
-referenceElement.parentNode.insertBefore(newListItem, referenceElement);
 referenceElement.parentNode.insertBefore(elementToMove3, referenceElement);
 
 /* END přesunout zasilkovna + do objednávek END */
