@@ -207,7 +207,6 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 				
         			var previousMonth = currentDate.getMonth() - 1;
        				var previousMonthYear = currentDate.getFullYear();
-           			console.log(previousMonth);
            			if (previousMonth < 0) {
 			            previousMonth = 11;
 	   			        previousMonthYear -= 1;
