@@ -1,10 +1,47 @@
-console.log("verze 10.3");
-/* přesunout zasilkovna + do objednávek */
-var elementToMove3 = document.querySelector('li a[href="/admin/prehled-objednavek/"].navigation__link.navigation__link--123').parentNode;
-var referenceElement = document.querySelector('li a[href="/admin/objednavky/"].navigation__link.navigation__link--122').parentNode;
-referenceElement.parentNode.insertBefore(elementToMove3, referenceElement);
+console.log("verze 10.4");
+/* vždy zobrazit přehled u objednávek a produktů */
+const anchors = [
+    'a.navigation__link.navigation__link--123',
+    'a.navigation__link.navigation__link--155'
+];
 
-/* END přesunout zasilkovna + do objednávek END */
+anchors.forEach(anchorSelector => {
+    const anchor = document.querySelector(anchorSelector);
+
+    if (anchor) {
+        // Najdi rodičovský <li> prvek
+        const liElement = anchor.closest('li');
+
+        if (liElement) {
+            // Zkopíruj <li> prvek
+            const liClone = liElement.cloneNode(true);
+
+            // Vytvoř nový <ul> prvek
+            const newUl = document.createElement('ul');
+
+            // Nastav styl display: block !important
+            newUl.style.setProperty('display', 'block', 'important');
+
+            // Vlož zkopírovaný <li> do nového <ul>
+            newUl.appendChild(liClone);
+
+            // Najdi rodičovský <ul> prvek, do kterého se původně <li> nacházel
+            const ulElement = liElement.closest('ul');
+
+            if (ulElement) {
+                // Vlož nový <ul> za původní <ul>
+                ulElement.parentNode.insertBefore(newUl, ulElement.nextSibling);
+            } else {
+                console.error('Rodičovský <ul> nenalezen.');
+            }
+        } else {
+            console.error('Rodičovský <li> nenalezen.');
+        }
+    } else {
+        console.error(`<a> s třídou ${anchorSelector} nenalezen.`);
+    }
+});
+/* END vždy zobrazit přehled u objednávek a produktů END */
 /* zasilkovna+ označení "vyřizuje se" */
 
 if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
