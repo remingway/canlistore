@@ -1,4 +1,4 @@
-console.log("verze 10.4");
+console.log("verze 10.5");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
