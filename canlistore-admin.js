@@ -690,8 +690,12 @@ function createCopyButton() {
     copyNotificationButton.addEventListener('click', () => {
         navigator.clipboard.writeText(customProductNotification)
             .then(() => {
-                localStorage.removeItem('customProductNotification');
-                copyNotificationButton.style.display = 'none';
+		if(confirm("୧༼ಠ益ಠ༽୨"))
+		{
+			window.open("https://www.messenger.com/");
+                	localStorage.removeItem('customProductNotification');
+                	copyNotificationButton.style.display = 'none';
+		}
             })
             .catch((error) => {
                 console.error('Chyba při kopírování do schránky:', error);
