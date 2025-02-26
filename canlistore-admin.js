@@ -1,4 +1,4 @@
-console.log("verze 11.0");
+console.log("verze 11.1");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -725,8 +725,11 @@ buttonKalendar.style.cursor = "pointer";
 buttonKalendar.style.border = "1px solid";
 numberLiKalendar.appendChild(buttonKalendar);
 
-if (targetElement) {
-    targetElement.parentNode.insertBefore(numberLiKalendar, targetElement);
+const targetElementProKalendar = document.querySelector(
+	'.headerNavigation__item.headerNavigation__item--university'
+);
+if (targetElementProKalendar) {
+    targetElementProKalendar.parentNode.insertBefore(numberLiKalendar, targetElement);
 }
 // Funkce pro přidání obsahu kalendáře
 let calendarVisible = false; // Stav, zda je kalendář zobrazen
