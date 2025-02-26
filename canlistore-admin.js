@@ -1,4 +1,4 @@
-console.log("verze 11.1");
+console.log("verze 11.2");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -729,7 +729,7 @@ const targetElementProKalendar = document.querySelector(
 	'.headerNavigation__item.headerNavigation__item--university'
 );
 if (targetElementProKalendar) {
-    targetElementProKalendar.parentNode.insertBefore(numberLiKalendar, targetElement);
+    targetElementProKalendar.parentNode.insertBefore(numberLiKalendar, targetElementProKalendar);
 }
 // Funkce pro přidání obsahu kalendáře
 let calendarVisible = false; // Stav, zda je kalendář zobrazen
