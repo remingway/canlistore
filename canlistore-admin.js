@@ -1,4 +1,4 @@
-console.log("verze 11.2");
+console.log("verze 11.3");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -647,68 +647,32 @@ if (
 		}
 	});
 }
+
 /* END odesílání digitálních produktů END */
-/* kontrola custom produktu a vložení iunformací do tlačítka */
-function handleButtonClick() {
-    if (window.location.href === "https://www.canlistore.cz/admin/pokladna/univerzalni-produkt/") {
-        const productActionButton = document.querySelector('.btn.btn-lg.btn-action.product-action');
-        if (productActionButton) {
-            productActionButton.addEventListener('click', () => {
-                const now = new Date();
-                const formattedDate = now.toLocaleString('cs-CZ');
-                const input = document.getElementById('cash-desk-hollow-product-name');
-                const inputValue = input ? input.value : 'Název neznámý';
-                const customProductNotification = `custom produkt\n${formattedDate}\nnázev:${inputValue}`;
-                const existingNotifications = localStorage.getItem('customProductNotification');
-                const updatedNotifications = existingNotifications
-                    ? `${existingNotifications}\n\n${customProductNotification}`
-                    : customProductNotification;
-                localStorage.setItem('customProductNotification', updatedNotifications);
-            });
-        }
-    }
+/* kontrola custom produktu a odeslání do google sheet */
+
+function poslatObjednavku(datum, jmeno) {
+  fetch("https://script.google.com/macros/s/AKfycbzyyygcsI6Yi1JKewqcQaWrMG9p_i6YxLnwkWbneQeaMLoif3_4118ZzVJFqpKLwj5CeA/exec", {
+    method: "POST",
+    mode: "no-cors", 
+    body: JSON.stringify({ datum, jmeno}),
+    headers: { "Content-Type": "application/json" }
+  }).then(response => console.log("Objednávka odeslána"));
 }
-
-function createCopyButton() {
-	if (location.href.startsWith('https://www.canlistore.cz/admin')){
-    const customProductNotification = localStorage.getItem('customProductNotification');
-    if (!customProductNotification) {
-        return;
-    }
-    const copyNotificationButton = document.createElement('button');
-    copyNotificationButton.textContent = 'custom produkt';
-  	copyNotificationButton.style.position = 'fixed';
-    copyNotificationButton.style.top = '10px';
-    copyNotificationButton.style.left = '50%';
-    copyNotificationButton.style.backgroundColor = 'green';
-    copyNotificationButton.style.color = 'white';
-    copyNotificationButton.style.border = 'none';
-    copyNotificationButton.style.padding = '10px 20px';
-    copyNotificationButton.style.cursor = 'pointer';
-    copyNotificationButton.style.zIndex = '10000';
-
-    copyNotificationButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(customProductNotification)
-            .then(() => {
-		if(confirm("୧༼ಠ益ಠ༽୨"))
-		{
-			window.open("https://www.messenger.com/");
-                	localStorage.removeItem('customProductNotification');
-                	copyNotificationButton.style.display = 'none';
-		}
-            })
-            .catch((error) => {
-                console.error('Chyba při kopírování do schránky:', error);
-            });
-    });
-    document.body.appendChild(copyNotificationButton);
+if (window.location.href === "https://www.canlistore.cz/admin/pokladna/univerzalni-produkt/") {
+	const productActionButton = document.querySelector('.btn.btn-lg.btn-action.product-action');
+	if (productActionButton) {
+		productActionButton.addEventListener('click', () => {
+		const now = new Date();
+		const formattedDate = now.toLocaleString('cs-CZ');
+		const input = document.getElementById('cash-desk-hollow-product-name');
+		const inputValue = input ? input.value : 'Název neznámý';
+		poslatObjednavku(formattedDate,inputValue);
+		});
 	}
 }
 
-createCopyButton();
-handleButtonClick();
-
-/* END kontrola custom produktu a vložení iunformací do tlačítka END */
+/* END kontrola custom produktu a odeslání do google sheet END */
 /* vytvořit kalendář */
 
 const numberLiKalendar = document.createElement('li');
