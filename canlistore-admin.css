@@ -1,0 +1,24 @@
+.cashdesk-products-listing .product div{
+	height: auto;
+}
+.cashdesk-products-listing .product{
+	margin: 2px 0;
+	display: inline-table;
+}
+.cashdesk-product-description{
+	width: 100%;
+	height: 60px;
+}
+.cashdesk-product-image{
+	padding: 1px 0;	
+	width: 100%;
+}
+.cashdesk-product-image img{
+	width: auto;
+}
+.massAction__item:nth-of-type(2){
+	display: none;
+}
+.massAction__item:nth-of-type(3){
+	display: none;
+}
