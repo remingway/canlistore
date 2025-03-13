@@ -1,4 +1,4 @@
-console.log("verze 12");
+console.log("verze 12.1");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -442,30 +442,44 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[5].classList.contains('active')) {
-		if(document.querySelector('a[rel="massStatusChange|2"]'))
+		var originalButton1 = document.querySelectorAll('a[data-custom-action="openCreateAndPrintShipmentsModal"]')[1];
+		if(originalButton1)
 		{
-	    	var originalButton = document.querySelector('a[rel="massStatusChange|2"]');
-			var parentSpan = originalButton.closest('.massAction__submenuTrigger').querySelector('.massAction__submenuHeader');
-			originalButton.style.backgroundColor = '#55995555';
-
-			if (originalButton && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
+			if (originalButton1)// && originalButton.textContent.includes("Tisknout štítky (Balíky)"))
 			{
-    		    var newButtonOdeslana = document.createElement('button');
-    		    newButtonOdeslana.className = 'btn btn-sm btn-secondary';
-    		    newButtonOdeslana.style.backgroundColor = '#55995555';
-    		    newButtonOdeslana.innerText = 'Odeslaná';
-
+				originalButton1.style.backgroundColor = '#55995555';
+	  			var newButtonTisk = document.createElement('button');
+	    			newButtonTisk.className = 'btn btn-sm btn-secondary';
+    				newButtonTisk.style.backgroundColor = '#55995555';
+    				newButtonTisk.innerText = 'Tisk';
+				newButtonTisk.addEventListener('click', function(event)
+				{
+    		        		originalButton1.click();
+    		    		});
+   	 		    	var dropdownMenu = document.querySelector('.massAction');
+   		 	    	(dropdownMenu).appendChild(newButtonTisk);
+    			}
+		}	
+	    	var originalButton2 = document.querySelector('a[rel="massStatusChange|2"]');
+		if(originalButton2)
+		{
+			var parentSpan = originalButton2.closest('.massAction__submenuTrigger').querySelector('.massAction__submenuHeader');
+			originalButton2.style.backgroundColor = '#55995555';
+			if (originalButton2 && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
+			{
+	    			var newButtonOdeslana = document.createElement('button');
+	    			newButtonOdeslana.className = 'btn btn-sm btn-secondary';
+	    			newButtonOdeslana.style.backgroundColor = '#55995555';
+	    			newButtonOdeslana.innerText = 'Odeslaná';
 				newButtonOdeslana.addEventListener('click', function(event)
 				{
-    		        originalButton.click();
-    		    });
-        
-   	 		    var dropdownMenu = document.querySelector('.massAction');
-   		 	    (dropdownMenu).appendChild(newButtonOdeslana);
-    		}
+    		        		originalButton2.click();
+    		    		});
+				var dropdownMenu = document.querySelector('.massAction');
+   		 		(dropdownMenu).appendChild(newButtonOdeslana);
+    			}
 		}	
 	}
-
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[4].classList.contains('active')) {
 		if(document.querySelector('a[rel="massStatusChange|-3"]'))
