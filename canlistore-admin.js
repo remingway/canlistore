@@ -1,4 +1,4 @@
-console.log("verze 11.3");
+console.log("verze 12");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -884,3 +884,37 @@ function loadCalendar() {
 buttonKalendar.addEventListener("click", loadCalendar);
 
 /* END vytvořit kalendář END */
+
+/* pokladna úprava */
+
+function updateImageSrc() {
+	var imgElements = document.querySelectorAll('img');
+	imgElements.forEach((img) => {
+		if (img.src.includes('/related/')) {
+			img.src = img.src.replace('/related/', '/detail/');
+		}
+	});
+}
+
+if (location.href.startsWith('https://www.canlistore.cz/admin/pokladna/')) {
+	updateImageSrc();
+
+	// Nastavení MutationObserver pro sledování změn v .cashdesk-search-result
+	var observer = new MutationObserver((mutationsList) => {
+		for (var mutation of mutationsList) {
+			if (mutation.type === 'childList') {
+				updateImageSrc();
+			}
+		}
+	});
+
+	// Najdeme .cashdesk-search-result prvek a začneme ho sledovat
+	var targetNode = document.querySelector('.cashdesk-search-result');
+	if (targetNode) {
+		observer.observe(targetNode, { childList: true, subtree: true });
+	} else {
+		console.warn('.cashdesk-search-result element not found.');
+	}
+}
+
+/* END pokladna úprava END */
