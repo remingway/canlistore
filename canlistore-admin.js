@@ -465,7 +465,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 		{
 			var parentSpan = originalButton2.closest('.massAction__submenuTrigger').querySelector('.massAction__submenuHeader');
 			originalButton2.style.backgroundColor = '#55995555';
-			if (originalButton2 && originalButton.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
+			if (originalButton2 && originalButton2.textContent.includes("Odeslaná") && parentSpan && parentSpan.textContent.includes("Stav"))
 			{
 	    			var newButtonOdeslana = document.createElement('button');
 	    			newButtonOdeslana.className = 'btn btn-sm btn-secondary';
