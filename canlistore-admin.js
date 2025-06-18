@@ -1,4 +1,4 @@
-console.log("verze 12.1");
+console.log("verze 12.2");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -666,7 +666,7 @@ if (
 /* kontrola custom produktu a odeslání do google sheet */
 
 function poslatObjednavku(datum, jmeno) {
-  fetch("https://script.google.com/macros/s/AKfycbzyyygcsI6Yi1JKewqcQaWrMG9p_i6YxLnwkWbneQeaMLoif3_4118ZzVJFqpKLwj5CeA/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbzOm1laILFgGBR_q1WH0q-wIo6zyja8L_Waw2OvFLvhstb7Ur-37Am9yvGPSNdvXxBs/exec", {
     method: "POST",
     mode: "no-cors", 
     body: JSON.stringify({ datum, jmeno}),
