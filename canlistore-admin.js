@@ -1,4 +1,4 @@
-console.log("verze 12.2");
+console.log("verze 12.3");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -613,7 +613,7 @@ if (
 		if (event.target.closest('.open-modal a')) {
 			setTimeout(function () {
 				let inputElement = document.querySelector(
-					'input[value="Canli Store 📚 PDF soubory"]'
+					'input[value="Artýrium 📚 PDF soubory"]'
 				);
 				if (inputElement) {
 					var iframe = document.getElementById('description_ifr');
