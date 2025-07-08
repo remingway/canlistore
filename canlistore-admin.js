@@ -1,4 +1,4 @@
-console.log("verze 12.3");
+console.log("verze 12.4");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -29,7 +29,7 @@ anchors.forEach(anchorSelector => {
             const ulElement = liElement.closest('ul');
 
             if (ulElement) {
-                // Vlož nový <ul> za původní <ul>
+                // Vlož nový <ul> za původní <ul>;
                 ulElement.parentNode.insertBefore(newUl, ulElement.nextSibling);
             } else {
                 console.error('Rodičovský <ul> nenalezen.');
@@ -143,7 +143,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 			for (var i = 0; i < trsCount; i++) {
 				var v2inlines = trs[i].querySelectorAll('div.v2inline.v2inline--justifyBetween');
 				var spanElement = v2inlines[0].querySelector('span');
-				if (spanElement && spanElement.textContent.trim() === 'Osobní odběr') {
+				if (spanElement && spanElement.textContent.trim() === 'Osobní odběr / digitální produkty') {
 					var selectElement = divSelectElement[i].querySelector('select');
 					if (selectElement) selectElement.value = '30';
 					if (selectElement) selectElement.style.backgroundColor = '#ffff0040';
@@ -172,7 +172,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 						spanElementPay &&
 						spanElementPay.textContent.trim() === 'Hotově / kartou' &&
 						spanElement &&
-						spanElement.textContent.trim() === 'Osobní odběr'
+						spanElement.textContent.trim() === 'Osobní odběr / digitální produkty'
 					) {
 						var selectElement = divSelectElement[i].querySelector('select');
 						if (selectElement) selectElement.value = '-2';
