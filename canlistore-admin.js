@@ -1,4 +1,4 @@
-console.log("verze 13.0");
+console.log("verze 13.1");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -42,7 +42,7 @@ anchors.forEach(anchorSelector => {
     }
 });
 /* END vždy zobrazit přehled u objednávek a produktů END */
-/* zasilkovna+ označení "vyřizuje se" */
+/* zasilkovna+ označení "vyřizuje se"
 
 if (location.href.startsWith('https://www.artyrium.cz/admin/zasilkovna-plugin/'))
 {
@@ -64,7 +64,7 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/zasilkovna-plugin/')
 	}
 }
 
-/* END zasilkovna+ označení "vyřizuje se" END */
+ END zasilkovna+ označení "vyřizuje se" END */
 /* označení více jak 1 ks v objednávce */
 
 if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
@@ -261,7 +261,7 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'
 	}
 }
 /* END počet dnů u datumu END */
-/* kontrola stavu zásilek - odeslané*/
+/* kontrola stavu zásilek - odeslané
 
 if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
@@ -365,7 +365,7 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'
 	}
 }
 
-/* END kontrola stavu zásilek - odeslané END */
+ END kontrola stavu zásilek - odeslané END */
 /* přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" */
 
 if (document.querySelector('tbody')) {
@@ -510,7 +510,7 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'
 }
 
 /* END zvýraznění přehazování objednávek do odesláno END */
-/* vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" */
+/* vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se"
 
 var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 if (window.location.href.includes('/admin/prehled-objednavek/') && dropdownLists[5].classList.contains('active'))
@@ -575,7 +575,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
 	}
 }
 
-/* END vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" END */
+ END vytvořit tlačítko které přeskočí mezi "zaplaceno" "nevyřízeno" a uloží je = přehodí vše do "vyřizuje se" END */
 /* odesílání digitálních produktů */
 
 const linksMap = {
