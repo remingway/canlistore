@@ -1,4 +1,4 @@
-console.log("verze 12.4");
+console.log("verze 13.0");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -44,7 +44,7 @@ anchors.forEach(anchorSelector => {
 /* END vždy zobrazit přehled u objednávek a produktů END */
 /* zasilkovna+ označení "vyřizuje se" */
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/zasilkovna-plugin/'))
 {
 	var iframe = document.getElementById('partner-iframe');
 	if (iframe) {
@@ -67,7 +67,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/zasilkovna-plugin/
 /* END zasilkovna+ označení "vyřizuje se" END */
 /* označení více jak 1 ks v objednávce */
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
 	setInterval(function () {
 		var cells = document.querySelectorAll('.table__cell--number');
@@ -86,7 +86,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 /* END označení více jak 1 ks v objednávce END */
 /* Kontrola Dobírek a přehození do vyřizuje se */
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
 	var dropdownList = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownList[7].classList.contains('active')) {
@@ -186,7 +186,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 /* END Kontrola osobní odběr v nevyřizenýcha přehození do vyřizuje se END */
 /* počet dnů u datumu */
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
 	var spans = document.querySelectorAll('span.grey.nowrap');
 	if(spans.length > 0)
@@ -263,7 +263,7 @@ if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek
 /* END počet dnů u datumu END */
 /* kontrola stavu zásilek - odeslané*/
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[3].classList.contains('active')) {
@@ -377,7 +377,7 @@ if (document.querySelector('tbody')) {
 		removeTabindex();
 	}
 
-	if (location.href.startsWith('https://www.canlistore.cz/admin/produkty/')) {
+	if (location.href.startsWith('https://www.artyrium.cz/admin/produkty/')) {
 		const toggleButtonElement = document.querySelector('.content-buttons');
 		const buttonSpan = document.createElement('span');
 		const buttonA = document.createElement('a');
@@ -438,7 +438,7 @@ function removeTabindex() {
 /* END přepínání tabování mezi sloupci a řádky - další tlačítko u "uložit" END */
 /* zvýraznění přehazování objednávek do odesláno */
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/prehled-objednavek/'))
+if (location.href.startsWith('https://www.artyrium.cz/admin/prehled-objednavek/'))
 {
 	var dropdownLists = document.querySelectorAll('ul.dropdown-ready li');
 	if (dropdownLists[5].classList.contains('active')) {
@@ -537,7 +537,7 @@ if (window.location.href.includes('/admin/prehled-objednavek/') && dropdownLists
 	newButtonZkontrolovat.addEventListener('click', function()
 	{
 		sessionStorage.setItem('autoClick', 'true');
-    window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/33/';
+    window.location.href = 'https://www.artyrium.cz/admin/prehled-objednavek/33/';
   });
 }
 else if (window.location.href.includes('/admin/prehled-objednavek/33/'))
@@ -553,7 +553,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/33/'))
 		else
 		{
 			sessionStorage.setItem('saveComplete', 'false');
-			window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-1/';
+			window.location.href = 'https://www.artyrium.cz/admin/prehled-objednavek/-1/';
        	}
 	}
 }
@@ -570,7 +570,7 @@ else if (window.location.href.includes('/admin/prehled-objednavek/-1/'))
 		else
 		{
 			sessionStorage.setItem('saveComplete', 'false');
-			window.location.href = 'https://www.canlistore.cz/admin/prehled-objednavek/-2/';
+			window.location.href = 'https://www.artyrium.cz/admin/prehled-objednavek/-2/';
     	}
 	}
 }
@@ -606,7 +606,7 @@ const linksMap = {
 	'Zápisník pro Mateřské školy - PDF k tisku':'https://drive.google.com/drive/folders/17rPMDxw9C1l6tZ9UoJyjPM_EfuxAV09A?usp=drive_link'
 };
 if (
-	location.href.startsWith('https://www.canlistore.cz/admin/objednavky-detail')
+	location.href.startsWith('https://www.artyrium.cz/admin/objednavky-detail')
 ) {
 	document.addEventListener('click', function (event) {
 		// Zkontrolujeme, zda kliknutí bylo na odkaz uvnitř elementu s třídou 'open-modal'
@@ -673,7 +673,7 @@ function poslatObjednavku(datum, jmeno) {
     headers: { "Content-Type": "application/json" }
   }).then(response => console.log("Objednávka odeslána"));
 }
-if (window.location.href === "https://www.canlistore.cz/admin/pokladna/univerzalni-produkt/") {
+if (window.location.href === "https://www.artyrium.cz/admin/pokladna/univerzalni-produkt/") {
 	const productActionButton = document.querySelector('.btn.btn-lg.btn-action.product-action');
 	if (productActionButton) {
 		productActionButton.addEventListener('click', () => {
@@ -910,7 +910,7 @@ function updateImageSrc() {
 	});
 }
 
-if (location.href.startsWith('https://www.canlistore.cz/admin/pokladna/')) {
+if (location.href.startsWith('https://www.artyrium.cz/admin/pokladna/')) {
 	updateImageSrc();
 
 	// Nastavení MutationObserver pro sledování změn v .cashdesk-search-result
