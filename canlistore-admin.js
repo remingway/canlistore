@@ -693,14 +693,14 @@ const numberLiKalendar = document.createElement('li');
 numberLiKalendar.className = 'headerNavigation__link js-drawer-toggle';
 const buttonKalendar = document.createElement('button');
 buttonKalendar.textContent = "Kalendář";
-buttonKalendar.style.backgroundColor = "#FF634755";
+buttonKalendar.style.backgroundColor = "#91ceff";
 buttonKalendar.style.display = "block";
 buttonKalendar.style.zIndex = "10000";
 buttonKalendar.style.margin = "10px auto";
 buttonKalendar.style.fontSize = "16px";
 buttonKalendar.style.padding = "5px 5px";
 buttonKalendar.style.cursor = "pointer";
-buttonKalendar.style.border = "1px solid";
+buttonKalendar.style.border = "1px solid #5994c4";
 numberLiKalendar.appendChild(buttonKalendar);
 
 const targetElementProKalendar = document.querySelector(
