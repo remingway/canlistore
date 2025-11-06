@@ -1,4 +1,4 @@
-console.log("verze 13.1");
+console.log("verze 14");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -932,3 +932,239 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/pokladna/')) {
 }
 
 /* END pokladna úprava END */
+/* zobrazení skladových zásob produktů */
+
+const csvUrl = "https://www.artyrium.cz/export/products.csv?patternId=11&partnerId=14&hash=fb37ca04338a033910bb58806735dfd92f8abe968e8d7c8f83c3bbc2ed58f6b2&stockState=4";
+// --- 1️⃣ Vytvoření tlačítka Produkty ---
+const numberLiProdukty = document.createElement('li');
+numberLiProdukty.className = 'headerNavigation__link js-drawer-toggle';
+
+const buttonProdukty = document.createElement('button');
+buttonProdukty.textContent = "Produkty";
+buttonProdukty.style.backgroundColor = "#ffad9e";
+buttonProdukty.style.display = "block";
+buttonProdukty.style.zIndex = "10000";
+buttonProdukty.style.margin = "10px auto";
+buttonProdukty.style.fontSize = "16px";
+buttonProdukty.style.padding = "5px 5px";
+buttonProdukty.style.cursor = "pointer";
+buttonProdukty.style.border = "1px solid #d06e5c";
+numberLiProdukty.appendChild(buttonProdukty);
+
+// --- 2️⃣ Vložení tlačítka vedle Kalendáře ---
+const targetElementProKalendar = document.querySelector(
+	'.headerNavigation__item.headerNavigation__item--university'
+);
+if (targetElementProKalendar) {
+    targetElementProKalendar.parentNode.insertBefore(numberLiProdukty, targetElementProKalendar);
+}
+
+// --- 3️⃣ Funkce pro zobrazení overlay s produkty ---
+let produktyOverlayLoaded = false; // aby se data načetla jen jednou
+
+// Funkce pro zobrazení overlay s produkty (upravená část)
+async function zobrazProdukty() {
+    let overlay = document.getElementById("produktyOverlay");
+
+    if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "produktyOverlay";
+        Object.assign(overlay.style, {
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "90vw",
+            maxWidth: "1200px",
+            height: "90vh",
+            background: "rgba(250,250,250,0.97)",
+            zIndex: 999999,
+            overflowY: "auto",
+            padding: "20px",
+            fontFamily: "sans-serif",
+            color: "#222",
+            borderRadius: "12px",
+            boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
+        });
+        document.body.appendChild(overlay);
+
+        const heading = document.createElement("h2");
+        heading.textContent = "Výpis produktů";
+        heading.style.marginBottom = "20px";
+        overlay.appendChild(heading);
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Zavřít";
+        Object.assign(closeBtn.style, {
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            padding: "6px 12px",
+            fontSize: "14px",
+            cursor: "pointer",
+            background: "#222",
+            color: "#fff",
+            border: "none",
+            borderRadius: "4px"
+        });
+        closeBtn.onclick = () => overlay.style.display = "none";
+        overlay.appendChild(closeBtn);
+
+        const outputDiv = document.createElement("div");
+        outputDiv.id = "produktyLoading";
+        outputDiv.textContent = "Načítám data...";
+        overlay.appendChild(outputDiv);
+
+        try {
+            const response = await fetch(csvUrl);
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            const text = await response.text();
+            const delimiter = text.includes(";") ? ";" : ",";
+            const rows = text.trim().split("\n").map(r => r.split(delimiter));
+
+            const categories = {};
+
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].map(c => c.replace(/^"|"$/g, "").trim());
+                const colC = cols[2];
+                const colD = cols[3];
+                const colE = parseFloat(cols[4]?.replace(",", "."));
+                const colF = parseFloat(cols[5]?.replace(",", "."));
+
+                if (!isNaN(colF) && !isNaN(colE) && colF > colE) {
+                    const parts = colD.split(">");
+                    const categoryName = parts[parts.length - 1].trim();
+                    if (!categories[categoryName]) categories[categoryName] = [];
+                    categories[categoryName].push({ name: colC, value: colE });
+                }
+            }
+
+            const container = document.createElement("div");
+            container.id = "produktyContainer";
+            container.style.display = "flex";
+            container.style.flexWrap = "wrap";
+            container.style.gap = "20px";
+            overlay.appendChild(container);
+
+            function renderCategories() {
+                container.innerHTML = ""; // vyprázdníme container
+
+                const sortedCategoryNames = Object.keys(categories).sort((a, b) => {
+                    const aVal = localStorage.getItem("cat_" + a) === "red" ? 1 : 0;
+                    const bVal = localStorage.getItem("cat_" + b) === "red" ? 1 : 0;
+                    return bVal - aVal; // červené nahoře
+                });
+
+                sortedCategoryNames.forEach(cat => {
+                    const catDiv = document.createElement("div");
+                    catDiv.style.minWidth = "200px";
+                    catDiv.style.marginBottom = "15px";
+                    catDiv.style.border = "1px solid #ccc";
+                    catDiv.style.borderRadius = "12px";
+                    catDiv.style.padding = "10px";
+                    catDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,0.08)";
+                    catDiv.style.backgroundColor = "#f0f0f0";
+
+                    const catHeading = document.createElement("h3");
+                    catHeading.style.display = "inline-block";
+                    catHeading.style.margin = "0 0 10px 0";
+                    catHeading.style.padding = "4px 8px";
+                    catHeading.style.borderRadius = "6px";
+                    catHeading.style.cursor = "pointer";
+                    catHeading.style.transition = "background 0.3s";
+                    catHeading.textContent = cat;
+
+                    const catStates = ["", "red"];
+                    let catState = localStorage.getItem("cat_" + cat) || "";
+                    const softRed = "#ff6b6b";
+                    if (catState === "red") catHeading.style.background = softRed;
+
+                    catHeading.onclick = () => {
+                        const idx = catStates.indexOf(catState);
+                        catState = catStates[(idx + 1) % catStates.length];
+                        localStorage.setItem("cat_" + cat, catState);
+                        catHeading.style.background = catState === "red" ? softRed : "";
+                        renderCategories(); // znovu vykreslíme kategorie, aby se červené dostaly nahoru
+                    };
+
+                    catDiv.appendChild(catHeading);
+
+                    categories[cat].forEach(item => {
+                        const row = document.createElement("div");
+                        row.style.padding = "2px 0";
+                        row.style.display = "flex";
+                        row.style.alignItems = "center";
+                        row.style.borderRadius = "6px";
+                        row.style.transition = "background 0.3s";
+
+                        const productStates = ["", "!", "✓"];
+                        let prodState = localStorage.getItem("prod_" + cat + "_" + item.name) || "";
+
+                        const productBtn = document.createElement("button");
+                        productBtn.textContent = prodState;
+                        productBtn.style.width = "26px";
+                        productBtn.style.height = "26px";
+                        productBtn.style.marginRight = "8px";
+                        productBtn.style.cursor = "pointer";
+                        productBtn.style.border = "1px solid #ccc";
+                        productBtn.style.borderRadius = "6px";
+                        productBtn.style.backgroundColor = "#e0e0e0";
+                        productBtn.style.transition = "background 0.2s";
+
+                        const updateRowColor = () => {
+                            if (prodState === "!") row.style.backgroundColor = "#ffd6d6";
+                            else if (prodState === "✓") row.style.backgroundColor = "#d6ffd6";
+                            else row.style.backgroundColor = "transparent";
+                        };
+
+                        updateRowColor();
+
+                        productBtn.onclick = () => {
+                            const idx = productStates.indexOf(prodState);
+                            prodState = productStates[(idx + 1) % productStates.length];
+                            productBtn.textContent = prodState;
+                            localStorage.setItem("prod_" + cat + "_" + item.name, prodState);
+                            updateRowColor();
+                        };
+
+                        row.appendChild(productBtn);
+                        const textNode = document.createTextNode(`${item.name} — ${item.value}`);
+                        row.appendChild(textNode);
+
+                        catDiv.appendChild(row);
+                    });
+
+                    container.appendChild(catDiv);
+                });
+
+                document.getElementById("produktyLoading").style.display = "none";
+            }
+
+            renderCategories(); // první vykreslení
+
+        } catch (err) {
+            document.getElementById("produktyLoading").textContent = "Chyba při načítání CSV: " + err.message;
+            console.error(err);
+        }
+
+        produktyOverlayLoaded = true;
+    } else {
+        overlay.style.display = "block";
+    }
+}
+
+
+// --- 4️⃣ Kliknutí na tlačítko Produkty ---
+buttonProdukty.addEventListener("click", () => {
+    const overlay = document.getElementById("produktyOverlay");
+    if (overlay) {
+        // Pokud overlay existuje, toggle display
+        overlay.style.display = overlay.style.display === "none" || overlay.style.display === "" ? "block" : "none";
+    } else {
+        // Pokud overlay ještě neexistuje, vytvoříme jej
+        zobrazProdukty();
+    }
+});
+
+/* END zobrazení skladových zásob produktů END */
+
