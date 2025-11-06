@@ -952,9 +952,6 @@ buttonProdukty.style.border = "1px solid #d06e5c";
 numberLiProdukty.appendChild(buttonProdukty);
 
 // --- 2️⃣ Vložení tlačítka vedle Kalendáře ---
-const targetElementProKalendar = document.querySelector(
-	'.headerNavigation__item.headerNavigation__item--university'
-);
 if (targetElementProKalendar) {
     targetElementProKalendar.parentNode.insertBefore(numberLiProdukty, targetElementProKalendar);
 }
