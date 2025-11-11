@@ -1,4 +1,4 @@
-console.log("verze 15");
+console.log("verze 16");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
 'a.navigation__link.navigation__link--123',
@@ -1023,18 +1023,37 @@ const rows = text.trim().split("\n").map(r => r.split(delimiter));
 
 const categories = {};
 
+
+const headers = rows[0].map(h => h.replace(/^"|"$/g, "").trim());
+
+const idxName = headers.indexOf("name");
+const idxCategory = headers.indexOf("defaultCategory");
+const idxStock = headers.indexOf("stock");
+const idxStockMin = headers.indexOf("stockMinSupply");
+const variantIndexes = headers.map((h, i) => (h.startsWith("variant:") ? i : -1)).filter(i => i !== -1);
+
+
+
 for (let i = 1; i < rows.length; i++) {
 const cols = rows[i].map(c => c.replace(/^"|"$/g, "").trim());
-const colC = cols[2];
-const colD = cols[3];
-const colE = parseFloat(cols[4]?.replace(",", "."));
-const colF = parseFloat(cols[5]?.replace(",", "."));
+const colC = cols[idxName];
+const colD = cols[idxCategory];
+const colE = parseFloat(cols[idxStock]?.replace(",", "."));
+const colF = parseFloat(cols[idxStockMin]?.replace(",", "."));
 
 if (!isNaN(colF) && !isNaN(colE) && colF > colE) {
 const parts = colD.split(">");
 const categoryName = parts[parts.length - 1].trim();
+
+const variants = variantIndexes
+                .map(idx => cols[idx])
+                .filter(v => v && v !== "")
+                .join(", ");
+
+            const displayName = variants ? `${colC} (${variants})` : colC;
+
 if (!categories[categoryName]) categories[categoryName] = [];
-categories[categoryName].push({ name: colC, value: colE });
+categories[categoryName].push({ name: displayName, value: colE });
 }
 }
 
