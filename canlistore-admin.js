@@ -1086,7 +1086,7 @@ async function zobrazProdukty() {
 
                     catDiv.appendChild(catHeading);
 
-                    categories[cat].forEach(item => {
+                    categories[cat].sort((a, b) => a.value - b.value).forEach(item => {
                         const row = document.createElement("div");
                         row.style.padding = "2px 0";
                         row.style.display = "flex";
