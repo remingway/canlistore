@@ -1,4 +1,4 @@
-console.log("verze 14.2");
+console.log("verze 14.3");
 /* vždy zobrazit přehled u objednávek a produktů */
 const anchors = [
     'a.navigation__link.navigation__link--123',
@@ -1023,10 +1023,31 @@ async function zobrazProdukty() {
 
             for (let i = 1; i < rows.length; i++) {
                 const cols = rows[i].map(c => c.replace(/^"|"$/g, "").trim());
-                const colC = cols[2];
-                const colD = cols[3];
-                const colE = parseFloat(cols[4]?.replace(",", "."));
-                const colF = parseFloat(cols[5]?.replace(",", "."));
+                // Získání hlavičky (první řádek CSV)
+const headers = rows[0].map(h => h.replace(/^"|"$/g, "").trim());
+
+// Indexy podle názvů sloupců
+const idxName = headers.indexOf("name");
+const idxCategory = headers.indexOf("defaultCategory");
+const idxStock = headers.indexOf("stock");
+const idxStockMin = headers.indexOf("stockMinSupply");
+
+for (let i = 1; i < rows.length; i++) {
+    const cols = rows[i].map(c => c.replace(/^"|"$/g, "").trim());
+    const name = cols[idxName];
+    const categoryPath = cols[idxCategory];
+    const stock = parseFloat(cols[idxStock]?.replace(",", "."));
+    const stockMin = parseFloat(cols[idxStockMin]?.replace(",", "."));
+
+    // Podmínka: zobrazit, pokud stockMinSupply < stock
+    if (!isNaN(stock) && !isNaN(stockMin) && stock > stockMin) {
+        const parts = categoryPath.split(">");
+        const categoryName = parts[parts.length - 1].trim();
+        if (!categories[categoryName]) categories[categoryName] = [];
+        categories[categoryName].push({ name, value: stockMin });
+    }
+}
+
 
                 if (!isNaN(colF) && !isNaN(colE) && colF > colE) {
                     const parts = colD.split(">");
