@@ -1,5 +1,70 @@
-console.log("verze 16");
+console.log("verze 17");
+/* procentuální sleva u akční ceny */
+if (window.location.href === "https://www.artyrium.cz/admin/ceny/") {
+    document.querySelectorAll('input[name^="actionPrice["]').forEach(actionInput => {
+        const row = actionInput.closest('tr');
+        if (!row) return;
+        const match = actionInput.name.match(/\[(\d+)\]/);
+        if (!match) return;
+        const id = match[1];
+        const standardInput = row.querySelector(`input[name="standardPrice[${id}]"]`);
+        if (!standardInput) return;
+
+		// --- Vytvoření percent inputu ---
+        const percentInput = document.createElement('input');
+        percentInput.type = 'text';
+        percentInput.className = 'numberField xs';
+        percentInput.style.marginLeft = '6px';
+        percentInput.style.background = '#fff3a3'; // žluté pozadí
+        percentInput.placeholder = '%';
+
+        // --- Funkce pro update procent podle ceny ---
+        const updatePercent = () => {
+            const actionPrice = parseFloat(actionInput.value);
+            const standardPrice = parseFloat(standardInput.value);
+
+            if (!standardPrice || isNaN(actionPrice)) {
+                percentInput.value = '';
+                return;
+            }
+
+            const percent = (actionPrice / standardPrice * 100).toFixed(0);
+            percentInput.value = percent + '%';
+        };
+
+        // --- Funkce pro update ceny podle procent ---
+        const updateActionPrice = () => {
+            let raw = percentInput.value.replace('%', '').trim();
+            const percent = parseFloat(raw);
+
+            const standardPrice = parseFloat(standardInput.value);
+            if (isNaN(percent) || !standardPrice) return;
+
+            const newActionPrice = (standardPrice * (percent / 100)).toFixed(0);
+            actionInput.value = newActionPrice;
+
+            updatePercent();
+        };
+
+        // První výpočet
+        updatePercent();
+
+        // Přepočítat když se změní ceny
+        actionInput.addEventListener('input', updatePercent);
+        standardInput.addEventListener('input', updatePercent);
+
+        // Přepočítat když uživatel změní procenta
+        percentInput.addEventListener('input', updateActionPrice);
+
+        // Umístění na stránce vedle actionPrice
+        actionInput.parentElement.appendChild(percentInput);
+    });
+
+}
+
+/* END procentuální sleva u akční ceny END */
 /* vždy zobrazit přehled u objednávek a produktů */
+
 const anchors = [
 'a.navigation__link.navigation__link--123',
 'a.navigation__link.navigation__link--155'
