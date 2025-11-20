@@ -1,6 +1,6 @@
 console.log("verze 17");
 /* procentuální sleva u akční ceny */
-if (window.location.href === "https://www.artyrium.cz/admin/ceny/") {
+if location.href.startsWith('https://www.artyrium.cz/admin/ceny/') {
     document.querySelectorAll('input[name^="actionPrice["]').forEach(actionInput => {
         const row = actionInput.closest('tr');
         if (!row) return;
