@@ -1,4 +1,4 @@
-console.log("verze 18");
+console.log("verze 19");
 /* procentuální sleva u akční ceny */
 if (location.href.startsWith('https://www.artyrium.cz/admin/ceny/')) {
     document.querySelectorAll('input[name^="actionPrice["]').forEach(actionInput => {
@@ -10,15 +10,15 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/ceny/')) {
         const standardInput = row.querySelector(`input[name="standardPrice[${id}]"]`);
         if (!standardInput) return;
 
-		// --- Vytvoření percent inputu ---
+		// --- Vytvoření inputu pro SLEVU ---
         const percentInput = document.createElement('input');
         percentInput.type = 'text';
         percentInput.className = 'numberField xs';
         percentInput.style.marginLeft = '6px';
         percentInput.style.background = '#fff3a3'; // žluté pozadí
-        percentInput.placeholder = '%';
+        percentInput.placeholder = '% sleva';
 
-        // --- Funkce pro update procent podle ceny ---
+        // --- Funkce: spočítat SLEVU podle ceny ---
         const updatePercent = () => {
             const actionPrice = parseFloat(actionInput.value);
             const standardPrice = parseFloat(standardInput.value);
@@ -28,19 +28,19 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/ceny/')) {
                 return;
             }
 
-            const percent = (actionPrice / standardPrice * 100).toFixed(0);
-            percentInput.value = percent + '%';
+            const discount = 100 - (actionPrice / standardPrice * 100);
+            percentInput.value = discount.toFixed(0) + '%';
         };
 
-        // --- Funkce pro update ceny podle procent ---
+        // --- Funkce: spočítat ACTION PRICE podle zadané slevy ---
         const updateActionPrice = () => {
             let raw = percentInput.value.replace('%', '').trim();
-            const percent = parseFloat(raw);
+            const discount = parseFloat(raw);
 
             const standardPrice = parseFloat(standardInput.value);
-            if (isNaN(percent) || !standardPrice) return;
+            if (isNaN(discount) || !standardPrice) return;
 
-            const newActionPrice = (standardPrice * (percent / 100)).toFixed(0);
+            const newActionPrice = (standardPrice * (1 - discount / 100)).toFixed(0);
             actionInput.value = newActionPrice;
 
             updatePercent();
@@ -49,17 +49,14 @@ if (location.href.startsWith('https://www.artyrium.cz/admin/ceny/')) {
         // První výpočet
         updatePercent();
 
-        // Přepočítat když se změní ceny
+        // Live přepočty
         actionInput.addEventListener('input', updatePercent);
         standardInput.addEventListener('input', updatePercent);
-
-        // Přepočítat když uživatel změní procenta
         percentInput.addEventListener('input', updateActionPrice);
 
-        // Umístění na stránce vedle actionPrice
+        // Umístíme do stránky
         actionInput.parentElement.appendChild(percentInput);
     });
-
 }
 
 /* END procentuální sleva u akční ceny END */
